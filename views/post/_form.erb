@@ -1,0 +1,17 @@
+<form method="POST" enctype="multipart/form-data">
+	<p>
+	<input type="text" name="title" placeholder="Title" class="form-control" 
+	value="<%= @post.title if defined?(@post.title) %>" pattern="[a-zA-Z0-9]+" required />
+	</p>
+	<p>
+	<input type="text" name="seo_slug" placeholder="Slug" class="form-control" 
+	value="<%= @post.seo_slug if defined?(@post.seo_slug) %>" pattern="[a-zA-Z0-9]+" required />
+	</p>
+	<p>
+	<textarea name="body" placeholder="Body" class="form-control html" required><%= @post.body if defined?(@post.body) %></textarea>
+	</p>
+	<p>
+	<input type="file" class="form-control" name="file[]" multiple="multiple">
+	<input type="submit" value="Save" class="btn btn-primary" />
+	</p>
+</form>
