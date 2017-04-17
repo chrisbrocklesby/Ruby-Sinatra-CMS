@@ -1,7 +1,8 @@
 ###### Post Index #######
 get "/post/?" do
   @pageTitle = "Post Index"
-  @posts = Post.all # Get all posts.
+  # @posts = Post.all # Get all posts.
+  @posts = Post.paginate :page => params[:page], :per_page => 10
   erb :"post/index"
 end
 

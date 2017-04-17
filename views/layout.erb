@@ -8,21 +8,34 @@
             <base href="http://localhost:4567">
             
             <title><%= @pageTitle %></title>
-            
-      	<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-            <link rel="stylesheet" href="./assets/css/style.css">
+            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+            <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="./assets/css/normalize.css">
+            <link rel="stylesheet" href="./assets/css/skeleton.css?v=2">
+            <link rel="stylesheet" href="./assets/css/style.css?v=2">
+            <script src="./assets/js/app.js"></script>
 
-            <script src="./assets/js/bootstrap.min.js" async></script>
-            <script src="./assets/js/app.js" async></script>
       </head>
+      <body>
 
-      <body class="container">
-            <a href="./" class="btn btn-secondary">Home</a>  
-            <a href="./post" class="btn btn-secondary">Index</a>  
-            <a href="./post/new" class="btn btn-secondary">New</a> 
-            <br/>
-            <br/>
-      
+      <nav id="nav">
+      <div class="container">
+            <a href="./" class="logo">Chris Brocklesby</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+            
+            
+
+            <a href="#" class="pull-right button button-primary " style="margin-top: 10px">Hire Me</a>
+            <a href="#contact" class="pull-right">Contact</a>
+            <a href="#about" class="pull-right">About</a>
+            <a href="./post/" class="pull-right">Blog</a>
+
+            </div>
+      </nav>
+
+      <div class="container">
+            <br><br/>
             <%= yield %>
+      </div>
       </body>
 <html>

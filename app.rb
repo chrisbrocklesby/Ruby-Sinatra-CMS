@@ -1,6 +1,8 @@
 ###### Required Gems #######
 require 'sinatra'
 require 'data_mapper'
+require 'will_paginate'
+require 'will_paginate/data_mapper'
 
 ###### Required Controllers #######
 require_relative 'controllers/home_controller'
