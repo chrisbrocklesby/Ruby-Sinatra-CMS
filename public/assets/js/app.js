@@ -1,5 +1,5 @@
 /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-function myFunction() {
+function responsiveMenu() {
     var x = document.getElementsByTagName('nav')[0];
     if (x.className === "") {
         x.className += "responsive";
@@ -7,3 +7,16 @@ function myFunction() {
         x.className = "";
     }
 }
+
+
+
+document.addEventListener('DOMContentLoaded', function(){
+      Typed.new('.element', {
+        strings: ["> Joe Blogs", "> Apple Developer"],
+        typeSpeed: 100,
+        loop: true,
+        cursorChar: " _",
+        startDelay: 2900,
+        backDelay: 2900,
+      });
+  });
