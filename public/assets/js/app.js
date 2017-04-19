@@ -12,7 +12,7 @@ function responsiveMenu() {
 
 document.addEventListener('DOMContentLoaded', function(){
       Typed.new('.element', {
-        strings: ["> Joe Blogs", "> Apple Developer"],
+        strings: ["Apple Developer", "Joe Blogs"],
         typeSpeed: 100,
         loop: true,
         cursorChar: " _",
