@@ -7,7 +7,7 @@ get "/post/?" do
 end
 
 
-###### New Post #######
+###### New Post ########
 get "/post/new/?" do
   @pageTitle = "New Post"
   erb :"post/new"
