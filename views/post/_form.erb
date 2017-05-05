@@ -8,7 +8,7 @@
 	value="<%= @post.seo_slug if defined?(@post.seo_slug) %>" pattern="[a-zA-Z0-9]+" required />
 	</p>
 	<p>
-	<textarea name="body" placeholder="Body" rows="15" class="form-control" required>
+	<textarea name="body" rows="15" required>
 	<%= @post.body if defined?(@post.body) %></textarea>
 	</p>
 	<p>
