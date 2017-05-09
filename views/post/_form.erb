@@ -10,76 +10,64 @@
 	<p>
 	
 	<div id="toolbar" style="display: none;">
-    <a data-wysihtml5-command="bold" title="CTRL+B" class="button"><i class="fa fa-bold" aria-hidden="true"></i></a>
-    <a data-wysihtml5-command="italic" title="CTRL+I" class="button"><i class="fa fa-italic" aria-hidden="true"></i></a>
-    <a data-wysihtml5-command="createLink" class="button"><i class="fa fa-link" aria-hidden="true"></i></a>
-    <a data-wysihtml5-command="insertImage" class="button"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
-    <a data-wysihtml5-command="uploadImage" class="button"><i class="fa fa-file-image-o" aria-hidden="true"></i></a>
-    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" class="button">h1</a>
-    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" class="button">h2</a>
-    <a data-wysihtml5-command="insertUnorderedList" class="button"><i class="fa fa-list" aria-hidden="true"></i></a>
-    <a data-wysihtml5-command="insertOrderedList" class="button"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-    <!--
-    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red" class="button" >red</a>
-    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green" class="button">green</a>
-    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue" class="button">blue</a>
-    <a data-wysihtml5-command="insertSpeech" class="button">speech</a>
-    -->
-    <a data-wysihtml5-action="change_view" class="button"><i class="fa fa-file-code-o" aria-hidden="true"></i></a>
+    <a textarea-command="bold" title="CTRL+B" class="button"><i class="fa fa-bold" aria-hidden="true"></i></a>
+    <a textarea-command="italic" title="CTRL+I" class="button"><i class="fa fa-italic" aria-hidden="true"></i></a>
+    <a textarea-command="createLink" class="button"><i class="fa fa-link" aria-hidden="true"></i></a>
+    <a textarea-command="insertImage" class="button"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+    <a textarea-command="uploadImage" class="button"><i class="fa fa-file-image-o" aria-hidden="true"></i></a>
+    <a textarea-command="formatBlock" textarea-command-value="h1" class="button">h1</a>
+    <a textarea-command="formatBlock" textarea-command-value="h2" class="button">h2</a>
+    <a textarea-command="formatBlock" textarea-command-value="h3" class="button">h3</a>
+    <a textarea-command="insertUnorderedList" class="button"><i class="fa fa-list" aria-hidden="true"></i></a>
+    <a textarea-command="insertOrderedList" class="button"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
     
-    <div data-wysihtml5-dialog="createLink" style="display: none;">
-
+    <a textarea-action="change_view" class="button" onclick='javascript:style.backgroundColor = style.backgroundColor? "":"#e0e0e0";' ><i class="fa fa-file-code-o" aria-hidden="true"></i></a>
+    
+    <div textarea-dialog="createLink" style="display: none;">
       <div class="row">
-      <div class="eight columns">
-      <input data-wysihtml5-dialog-field="href" type="text" value="http://" class="full-width">
+        <div class="eight columns">
+          <input textarea-dialog-field="href" type="text" value="http://" class="full-width">
+        </div>
+        <div class="four columns">
+          <a textarea-dialog-action="save" class="button">Insert</a>
+          <a textarea-dialog-action="cancel" class="button">Cancel</a></div>
       </div>
-      <div class="four columns">
-      <a data-wysihtml5-dialog-action="save" class="button">Insert</a>
-      <a data-wysihtml5-dialog-action="cancel" class="button">Cancel</a></div>
-      </div>
-      
     </div>
 
-    <div data-wysihtml5-dialog="uploadImage" style="display: none;">
+    <div textarea-dialog="uploadImage" style="display: none;">
 
       <div class="row">
       <div class="eight columns">
       <input type="file" class="form-control" name="file[]" multiple />
       </div>
       <div class="four columns">
-      <a data-wysihtml5-dialog-action="save" class="button">Insert</a>
-      <a data-wysihtml5-dialog-action="cancel" class="button">Cancel</a></div>
+      <a textarea-dialog-action="save" class="button">Insert</a>
+      <a textarea-dialog-action="cancel" class="button">Cancel</a></div>
       </div>
       
     </div>
     
-    <div data-wysihtml5-dialog="insertImage" style="display: none;">
+    <div textarea-dialog="insertImage" style="display: none;">
       <div class="seven columns">
-        <input data-wysihtml5-dialog-field="src" type="text" value="http://" class="full-width">
+        <input textarea-dialog-field="src" type="text" value="http://" class="full-width">
       </div>
       <div class="five columns">
-          <select data-wysihtml5-dialog-field="className" >
+        <select textarea-dialog-field="className" >
           <option value="">default</option>
-          <option value="wysiwyg-float-left">left</option>
-          <option value="wysiwyg-float-right">right</option>
+          <option value="pull-left">left</option>
+          <option value="pull-right">right</option>
         </select>
-      </label>
-      <a data-wysihtml5-dialog-action="save" class="button">Insert</a>
-      <a data-wysihtml5-dialog-action="cancel" class="button">Cancel</a>
+        <a textarea-dialog-action="save" class="button">Insert</a>
+        <a textarea-dialog-action="cancel" class="button">Cancel</a>
+      </div>
     </div>
-      
-    </div>
-    
   </div>
 
 	<textarea id="textarea" name="body" class="full-width" rows="20" required>
 	<%= @post.body if defined?(@post.body) %></textarea>
   <script src="./assets/js/textarea_editor.js"></script>
+  </p>
 
-	</p>
-	<p>
-	
-	</p>
 	<p>
 	<input type="submit" value="Save" class="btn btn-primary" />
 	</p>

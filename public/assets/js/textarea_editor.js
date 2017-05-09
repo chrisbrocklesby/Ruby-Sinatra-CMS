@@ -1,14 +1,6 @@
-/**
- * @license wysihtml5 v0.3.0
- * https://github.com/xing/wysihtml5
- *
- * Author: Christopher Blum (https://github.com/tiff)
- *
- * Copyright (C) 2012 XING AG
- * Licensed under the MIT license (MIT)
- *
- */
-var wysihtml5 = {
+////////// Text Area Editor //////////
+
+var textarea_editor = {
   version: "0.3.0",
   
   // namespaces
@@ -32,15 +24,8 @@ var wysihtml5 = {
   ESCAPE_KEY:     27,
   SPACE_KEY:      32,
   DELETE_KEY:     46
-};/**
- * @license Rangy, a cross-browser JavaScript range and selection library
- * http://code.google.com/p/rangy/
- *
- * Copyright 2011, Tim Down
- * Licensed under the MIT license.
- * Version: 1.2.2
- * Build date: 13 November 2011
- */
+};
+
 window['rangy'] = (function() {
 
 
@@ -3384,7 +3369,7 @@ Base = Base.extend({
 });/**
  * Detect browser support for specific features
  */
-wysihtml5.browser = (function() {
+textarea_editor.browser = (function() {
   var userAgent   = navigator.userAgent,
       testElement = document.createElement("div"),
       // Browser sniffing is unfortunately needed since some behaviors are impossible to feature detect
@@ -3528,7 +3513,7 @@ wysihtml5.browser = (function() {
      * @param {Object} context The document object on which to check HTML5 support
      *
      * @example
-     *    wysihtml5.browser.supportsHTML5Tags(document);
+     *    textarea_editor.browser.supportsHTML5Tags(document);
      */
     supportsHTML5Tags: function(context) {
       var element = context.createElement("div"),
@@ -3547,7 +3532,7 @@ wysihtml5.browser = (function() {
      * @return {Boolean}
      *
      * @example
-     *    wysihtml5.browser.supportsCommand(document, "bold");
+     *    textarea_editor.browser.supportsCommand(document, "bold");
      */
     supportsCommand: (function() {
       // Following commands are supported but contain bugs in some browsers
@@ -3699,7 +3684,7 @@ wysihtml5.browser = (function() {
      *
      * @example
      *    var input = document.createElement("input");
-     *    if (wysihtml5.browser.supportsSpeechApiOn(input)) {
+     *    if (textarea_editor.browser.supportsSpeechApiOn(input)) {
      *      // ...
      *    }
      */
@@ -3735,13 +3720,13 @@ wysihtml5.browser = (function() {
       return isGecko || isChrome || isOpera;
     }
   };
-})();wysihtml5.lang.array = function(arr) {
+})();textarea_editor.lang.array = function(arr) {
   return {
     /**
      * Check whether a given object exists in an array
      *
      * @example
-     *    wysihtml5.lang.array([1, 2]).contains(1);
+     *    textarea_editor.lang.array([1, 2]).contains(1);
      *    // => true
      */
     contains: function(needle) {
@@ -3759,11 +3744,11 @@ wysihtml5.browser = (function() {
      * Substract one array from another
      *
      * @example
-     *    wysihtml5.lang.array([1, 2, 3, 4]).without([3, 4]);
+     *    textarea_editor.lang.array([1, 2, 3, 4]).without([3, 4]);
      *    // => [1, 2]
      */
     without: function(arrayToSubstract) {
-      arrayToSubstract = wysihtml5.lang.array(arrayToSubstract);
+      arrayToSubstract = textarea_editor.lang.array(arrayToSubstract);
       var newArr  = [],
           i       = 0,
           length  = arr.length;
@@ -3780,7 +3765,7 @@ wysihtml5.browser = (function() {
      * 
      * Following will convert a Live NodeList to a proper Array
      * @example
-     *    var childNodes = wysihtml5.lang.array(document.body.childNodes).get();
+     *    var childNodes = textarea_editor.lang.array(document.body.childNodes).get();
      */
     get: function() {
       var i        = 0,
@@ -3792,8 +3777,8 @@ wysihtml5.browser = (function() {
       return newArray;
     }
   };
-};wysihtml5.lang.Dispatcher = Base.extend(
-  /** @scope wysihtml5.lang.Dialog.prototype */ {
+};textarea_editor.lang.Dispatcher = Base.extend(
+  /** @scope textarea_editor.lang.Dialog.prototype */ {
   observe: function(eventName, handler) {
     this.events = this.events || {};
     this.events[eventName] = this.events[eventName] || [];
@@ -3802,7 +3787,7 @@ wysihtml5.browser = (function() {
   },
 
   on: function() {
-    return this.observe.apply(this, wysihtml5.lang.array(arguments).get());
+    return this.observe.apply(this, textarea_editor.lang.array(arguments).get());
   },
 
   fire: function(eventName, payload) {
@@ -3835,11 +3820,11 @@ wysihtml5.browser = (function() {
     }
     return this;
   }
-});wysihtml5.lang.object = function(obj) {
+});textarea_editor.lang.object = function(obj) {
   return {
     /**
      * @example
-     *    wysihtml5.lang.object({ foo: 1, bar: 1 }).merge({ bar: 2, baz: 3 }).get();
+     *    textarea_editor.lang.object({ foo: 1, bar: 1 }).merge({ bar: 2, baz: 3 }).get();
      *    // => { foo: 1, bar: 2, baz: 3 }
      */
     merge: function(otherObj) {
@@ -3855,7 +3840,7 @@ wysihtml5.browser = (function() {
     
     /**
      * @example
-     *    wysihtml5.lang.object({ foo: 1 }).clone();
+     *    textarea_editor.lang.object({ foo: 1 }).clone();
      *    // => { foo: 1 }
      */
     clone: function() {
@@ -3869,7 +3854,7 @@ wysihtml5.browser = (function() {
     
     /**
      * @example
-     *    wysihtml5.lang.object([]).isArray();
+     *    textarea_editor.lang.object([]).isArray();
      *    // => true
      */
     isArray: function() {
@@ -3879,12 +3864,12 @@ wysihtml5.browser = (function() {
 };(function() {
   var WHITE_SPACE_START = /^\s+/,
       WHITE_SPACE_END   = /\s+$/;
-  wysihtml5.lang.string = function(str) {
+  textarea_editor.lang.string = function(str) {
     str = String(str);
     return {
       /**
        * @example
-       *    wysihtml5.lang.string("   foo   ").trim();
+       *    textarea_editor.lang.string("   foo   ").trim();
        *    // => "foo"
        */
       trim: function() {
@@ -3893,7 +3878,7 @@ wysihtml5.browser = (function() {
       
       /**
        * @example
-       *    wysihtml5.lang.string("Hello #{name}").interpolate({ name: "Christopher" });
+       *    textarea_editor.lang.string("Hello #{name}").interpolate({ name: "Christopher" });
        *    // => "Hello Christopher"
        */
       interpolate: function(vars) {
@@ -3905,7 +3890,7 @@ wysihtml5.browser = (function() {
       
       /**
        * @example
-       *    wysihtml5.lang.string("Hello Tom").replace("Tom").with("Hans");
+       *    textarea_editor.lang.string("Hello Tom").replace("Tom").with("Hans");
        *    // => "Hello Hans"
        */
       replace: function(search) {
@@ -3925,13 +3910,13 @@ wysihtml5.browser = (function() {
  *
  * @example
  *    <div id="text-container">Please click here: www.google.com</div>
- *    <script>wysihtml5.dom.autoLink(document.getElementById("text-container"));</script>
+ *    <script>textarea_editor.dom.autoLink(document.getElementById("text-container"));</script>
  */
-(function(wysihtml5) {
+(function(textarea_editor) {
   var /**
        * Don't auto-link urls that are contained in the following elements:
        */
-      IGNORE_URLS_IN        = wysihtml5.lang.array(["CODE", "PRE", "A", "SCRIPT", "HEAD", "TITLE", "STYLE"]),
+      IGNORE_URLS_IN        = textarea_editor.lang.array(["CODE", "PRE", "A", "SCRIPT", "HEAD", "TITLE", "STYLE"]),
       /**
        * revision 1:
        *    /(\S+\.{1}[^\s\,\.\!]+)/g
@@ -3992,9 +3977,9 @@ wysihtml5.browser = (function() {
    * for the given document object
    */
   function _getTempElement(context) {
-    var tempElement = context._wysihtml5_tempElement;
+    var tempElement = context._textarea_editor_tempElement;
     if (!tempElement) {
-      tempElement = context._wysihtml5_tempElement = context.createElement("div");
+      tempElement = context._textarea_editor_tempElement = context.createElement("div");
     }
     return tempElement;
   }
@@ -4037,12 +4022,12 @@ wysihtml5.browser = (function() {
       return;
     }
     
-    if (element.nodeType === wysihtml5.TEXT_NODE && element.data.match(URL_REG_EXP)) {
+    if (element.nodeType === textarea_editor.TEXT_NODE && element.data.match(URL_REG_EXP)) {
       _wrapMatchesInNode(element);
       return;
     }
     
-    var childNodes        = wysihtml5.lang.array(element.childNodes).get(),
+    var childNodes        = textarea_editor.lang.array(element.childNodes).get(),
         childNodesLength  = childNodes.length,
         i                 = 0;
     
@@ -4053,13 +4038,13 @@ wysihtml5.browser = (function() {
     return element;
   }
   
-  wysihtml5.dom.autoLink = autoLink;
+  textarea_editor.dom.autoLink = autoLink;
   
   // Reveal url reg exp to the outside
-  wysihtml5.dom.autoLink.URL_REG_EXP = URL_REG_EXP;
-})(wysihtml5);(function(wysihtml5) {
-  var supportsClassList = wysihtml5.browser.supportsClassList(),
-      api               = wysihtml5.dom;
+  textarea_editor.dom.autoLink.URL_REG_EXP = URL_REG_EXP;
+})(textarea_editor);(function(textarea_editor) {
+  var supportsClassList = textarea_editor.browser.supportsClassList(),
+      api               = textarea_editor.dom;
   
   api.addClass = function(element, className) {
     if (supportsClassList) {
@@ -4087,12 +4072,12 @@ wysihtml5.browser = (function() {
     var elementClassName = element.className;
     return (elementClassName.length > 0 && (elementClassName == className || new RegExp("(^|\\s)" + className + "(\\s|$)").test(elementClassName)));
   };
-})(wysihtml5);
-wysihtml5.dom.contains = (function() {
+})(textarea_editor);
+textarea_editor.dom.contains = (function() {
   var documentElement = document.documentElement;
   if (documentElement.contains) {
     return function(container, element) {
-      if (element.nodeType !== wysihtml5.ELEMENT_NODE) {
+      if (element.nodeType !== textarea_editor.ELEMENT_NODE) {
         element = element.parentNode;
       }
       return container !== element && container.contains(element);
@@ -4119,7 +4104,7 @@ wysihtml5.dom.contains = (function() {
  *    </span>
  *
  *    <script>
- *      wysihtml5.dom.convertToList(document.getElementById("pseudo-list"), "ul");
+ *      textarea_editor.dom.convertToList(document.getElementById("pseudo-list"), "ul");
  *    </script>
  *
  *    <!-- Will result in: -->
@@ -4129,7 +4114,7 @@ wysihtml5.dom.contains = (function() {
  *      <li>50 Cent</li>
  *    </ul>
  */
-wysihtml5.dom.convertToList = (function() {
+textarea_editor.dom.convertToList = (function() {
   function _createListItem(doc, list) {
     var listItem = doc.createElement("li");
     list.appendChild(listItem);
@@ -4164,21 +4149,21 @@ wysihtml5.dom.convertToList = (function() {
     for (i=0; i<lineBreaksLength; i++) {
       lineBreak = lineBreaks[i];
       while ((parentNode = lineBreak.parentNode) && parentNode !== element && parentNode.lastChild === lineBreak) {
-        if (wysihtml5.dom.getStyle("display").from(parentNode) === "block") {
+        if (textarea_editor.dom.getStyle("display").from(parentNode) === "block") {
           parentNode.removeChild(lineBreak);
           break;
         }
-        wysihtml5.dom.insert(lineBreak).after(lineBreak.parentNode);
+        textarea_editor.dom.insert(lineBreak).after(lineBreak.parentNode);
       }
     }
     
-    childNodes        = wysihtml5.lang.array(element.childNodes).get();
+    childNodes        = textarea_editor.lang.array(element.childNodes).get();
     childNodesLength  = childNodes.length;
     
     for (i=0; i<childNodesLength; i++) {
       currentListItem   = currentListItem || _createListItem(doc, list);
       childNode         = childNodes[i];
-      isBlockElement    = wysihtml5.dom.getStyle("display").from(childNode) === "block";
+      isBlockElement    = textarea_editor.dom.getStyle("display").from(childNode) === "block";
       isLineBreak       = childNode.nodeName === "BR";
       
       if (isBlockElement) {
@@ -4215,10 +4200,10 @@ wysihtml5.dom.convertToList = (function() {
  *    var textarea    = document.querySelector("textarea"),
  *        div         = document.querySelector("div[contenteditable=true]"),
  *        anotherDiv  = document.querySelector("div.preview");
- *    wysihtml5.dom.copyAttributes(["spellcheck", "value", "placeholder"]).from(textarea).to(div).andTo(anotherDiv);
+ *    textarea_editor.dom.copyAttributes(["spellcheck", "value", "placeholder"]).from(textarea).to(div).andTo(anotherDiv);
  *
  */
-wysihtml5.dom.copyAttributes = function(attributesToCopy) {
+textarea_editor.dom.copyAttributes = function(attributesToCopy) {
   return {
     from: function(elementToCopyFrom) {
       return {
@@ -4253,7 +4238,7 @@ wysihtml5.dom.copyAttributes = function(attributesToCopy) {
  *    var textarea    = document.querySelector("textarea"),
  *        div         = document.querySelector("div[contenteditable=true]"),
  *        anotherDiv  = document.querySelector("div.preview");
- *    wysihtml5.dom.copyStyles(["overflow-y", "width", "height"]).from(textarea).to(div).andTo(anotherDiv);
+ *    textarea_editor.dom.copyStyles(["overflow-y", "width", "height"]).from(textarea).to(div).andTo(anotherDiv);
  *
  */
 (function(dom) {
@@ -4286,7 +4271,7 @@ wysihtml5.dom.copyAttributes = function(attributesToCopy) {
     return {
       from: function(element) {
         if (shouldIgnoreBoxSizingBorderBox(element)) {
-          stylesToCopy = wysihtml5.lang.array(stylesToCopy).without(BOX_SIZING_PROPERTIES);
+          stylesToCopy = textarea_editor.lang.array(stylesToCopy).without(BOX_SIZING_PROPERTIES);
         }
         
         var cssText = "",
@@ -4307,20 +4292,20 @@ wysihtml5.dom.copyAttributes = function(attributesToCopy) {
       }
     };
   };
-})(wysihtml5.dom);/**
+})(textarea_editor.dom);/**
  * Event Delegation
  *
  * @example
- *    wysihtml5.dom.delegate(document.body, "a", "click", function() {
+ *    textarea_editor.dom.delegate(document.body, "a", "click", function() {
  *      // foo
  *    });
  */
-(function(wysihtml5) {
+(function(textarea_editor) {
   
-  wysihtml5.dom.delegate = function(container, selector, eventName, handler) {
-    return wysihtml5.dom.observe(container, eventName, function(event) {
+  textarea_editor.dom.delegate = function(container, selector, eventName, handler) {
+    return textarea_editor.dom.observe(container, eventName, function(event) {
       var target    = event.target,
-          match     = wysihtml5.lang.array(container.querySelectorAll(selector));
+          match     = textarea_editor.lang.array(container.querySelectorAll(selector));
       
       while (target && target !== container) {
         if (match.contains(target)) {
@@ -4332,7 +4317,7 @@ wysihtml5.dom.copyAttributes = function(attributesToCopy) {
     });
   };
   
-})(wysihtml5);/**
+})(textarea_editor);/**
  * Returns the given html wrapped in a div element
  *
  * Fixing IE's inability to treat unknown elements (HTML5 section, article, ...) correctly
@@ -4342,9 +4327,9 @@ wysihtml5.dom.copyAttributes = function(attributesToCopy) {
  * @param {Obejct} [context] Document object of the context the html belongs to
  *
  * @example
- *    wysihtml5.dom.getAsDom("<article>foo</article>");
+ *    textarea_editor.dom.getAsDom("<article>foo</article>");
  */
-wysihtml5.dom.getAsDom = (function() {
+textarea_editor.dom.getAsDom = (function() {
   
   var _innerHTMLShiv = function(html, context) {
     var tempElement = context.createElement("div");
@@ -4360,13 +4345,13 @@ wysihtml5.dom.getAsDom = (function() {
    * Make sure IE supports HTML5 tags, which is accomplished by simply creating one instance of each element
    */
   var _ensureHTML5Compatibility = function(context) {
-    if (context._wysihtml5_supportsHTML5Tags) {
+    if (context._textarea_editor_supportsHTML5Tags) {
       return;
     }
     for (var i=0, length=HTML5_ELEMENTS.length; i<length; i++) {
       context.createElement(HTML5_ELEMENTS[i]);
     }
-    context._wysihtml5_supportsHTML5Tags = true;
+    context._textarea_editor_supportsHTML5Tags = true;
   };
   
   
@@ -4386,7 +4371,7 @@ wysihtml5.dom.getAsDom = (function() {
     if (typeof(html) === "object" && html.nodeType) {
       tempElement = context.createElement("div");
       tempElement.appendChild(html);
-    } else if (wysihtml5.browser.supportsHTML5Tags(context)) {
+    } else if (textarea_editor.browser.supportsHTML5Tags(context)) {
       tempElement = context.createElement("div");
       tempElement.innerHTML = html;
     } else {
@@ -4404,13 +4389,13 @@ wysihtml5.dom.getAsDom = (function() {
  * @param {Number} [levels] How many parents should the function check up from the current node (defaults to 50)
  * @return {null|Element} Returns the first element that matched the desiredNodeName(s)
  * @example
- *    var listElement = wysihtml5.dom.getParentElement(document.querySelector("li"), { nodeName: ["MENU", "UL", "OL"] });
+ *    var listElement = textarea_editor.dom.getParentElement(document.querySelector("li"), { nodeName: ["MENU", "UL", "OL"] });
  *    // ... or ...
- *    var unorderedListElement = wysihtml5.dom.getParentElement(document.querySelector("li"), { nodeName: "UL" });
+ *    var unorderedListElement = textarea_editor.dom.getParentElement(document.querySelector("li"), { nodeName: "UL" });
  *    // ... or ...
- *    var coloredElement = wysihtml5.dom.getParentElement(myTextNode, { nodeName: "SPAN", className: "wysiwyg-color-red", classRegExp: /wysiwyg-color-[a-z]/g });
+ *    var coloredElement = textarea_editor.dom.getParentElement(myTextNode, { nodeName: "SPAN", className: "wysiwyg-color-red", classRegExp: /wysiwyg-color-[a-z]/g });
  */
-wysihtml5.dom.getParentElement = (function() {
+textarea_editor.dom.getParentElement = (function() {
   
   function _isSameNodeName(nodeName, desiredNodeNames) {
     if (!desiredNodeNames || !desiredNodeNames.length) {
@@ -4420,12 +4405,12 @@ wysihtml5.dom.getParentElement = (function() {
     if (typeof(desiredNodeNames) === "string") {
       return nodeName === desiredNodeNames;
     } else {
-      return wysihtml5.lang.array(desiredNodeNames).contains(nodeName);
+      return textarea_editor.lang.array(desiredNodeNames).contains(nodeName);
     }
   }
   
   function _isElement(node) {
-    return node.nodeType === wysihtml5.ELEMENT_NODE;
+    return node.nodeType === textarea_editor.ELEMENT_NODE;
   }
   
   function _hasClassName(element, className, classRegExp) {
@@ -4478,10 +4463,10 @@ wysihtml5.dom.getParentElement = (function() {
  * @param {String} property The CSS property to retrieve ("float", "display", "text-align", ...)
  *
  * @example
- *    wysihtml5.dom.getStyle("display").from(document.body);
+ *    textarea_editor.dom.getStyle("display").from(document.body);
  *    // => "block"
  */
-wysihtml5.dom.getStyle = (function() {
+textarea_editor.dom.getStyle = (function() {
   var stylePropertyMapping = {
         "float": ("styleFloat" in document.createElement("div").style) ? "styleFloat" : "cssFloat"
       },
@@ -4496,7 +4481,7 @@ wysihtml5.dom.getStyle = (function() {
   return function(property) {
     return {
       from: function(element) {
-        if (element.nodeType !== wysihtml5.ELEMENT_NODE) {
+        if (element.nodeType !== textarea_editor.ELEMENT_NODE) {
           return;
         }
         
@@ -4551,14 +4536,14 @@ wysihtml5.dom.getStyle = (function() {
  * @param {Object} doc The document object of the context where to check
  * @param {String} tagName Upper cased tag name
  * @example
- *    wysihtml5.dom.hasElementWithTagName(document, "IMG");
+ *    textarea_editor.dom.hasElementWithTagName(document, "IMG");
  */
-wysihtml5.dom.hasElementWithTagName = (function() {
+textarea_editor.dom.hasElementWithTagName = (function() {
   var LIVE_CACHE          = {},
       DOCUMENT_IDENTIFIER = 1;
   
   function _getDocumentIdentifier(doc) {
-    return doc._wysihtml5_identifier || (doc._wysihtml5_identifier = DOCUMENT_IDENTIFIER++);
+    return doc._textarea_editor_identifier || (doc._textarea_editor_identifier = DOCUMENT_IDENTIFIER++);
   }
   
   return function(doc, tagName) {
@@ -4578,20 +4563,20 @@ wysihtml5.dom.hasElementWithTagName = (function() {
  * @param {Object} doc The document object of the context where to check
  * @param {String} tagName Upper cased tag name
  * @example
- *    wysihtml5.dom.hasElementWithClassName(document, "foobar");
+ *    textarea_editor.dom.hasElementWithClassName(document, "foobar");
  */
-(function(wysihtml5) {
+(function(textarea_editor) {
   var LIVE_CACHE          = {},
       DOCUMENT_IDENTIFIER = 1;
 
   function _getDocumentIdentifier(doc) {
-    return doc._wysihtml5_identifier || (doc._wysihtml5_identifier = DOCUMENT_IDENTIFIER++);
+    return doc._textarea_editor_identifier || (doc._textarea_editor_identifier = DOCUMENT_IDENTIFIER++);
   }
   
-  wysihtml5.dom.hasElementWithClassName = function(doc, className) {
+  textarea_editor.dom.hasElementWithClassName = function(doc, className) {
     // getElementsByClassName is not supported by IE<9
     // but is sometimes mocked via library code (which then doesn't return live node lists)
-    if (!wysihtml5.browser.supportsNativeGetElementsByClassName()) {
+    if (!textarea_editor.browser.supportsNativeGetElementsByClassName()) {
       return !!doc.querySelector("." + className);
     }
 
@@ -4603,8 +4588,8 @@ wysihtml5.dom.hasElementWithTagName = (function() {
 
     return cacheEntry.length > 0;
   };
-})(wysihtml5);
-wysihtml5.dom.insert = function(elementToInsert) {
+})(textarea_editor);
+textarea_editor.dom.insert = function(elementToInsert) {
   return {
     after: function(element) {
       element.parentNode.insertBefore(elementToInsert, element.nextSibling);
@@ -4618,7 +4603,7 @@ wysihtml5.dom.insert = function(elementToInsert) {
       element.appendChild(elementToInsert);
     }
   };
-};wysihtml5.dom.insertCSS = function(rules) {
+};textarea_editor.dom.insertCSS = function(rules) {
   rules = rules.join("\n");
   
   return {
@@ -4643,9 +4628,9 @@ wysihtml5.dom.insert = function(elementToInsert) {
  * Method to set dom events
  *
  * @example
- *    wysihtml5.dom.observe(iframe.contentWindow.document.body, ["focus", "blur"], function() { ... });
+ *    textarea_editor.dom.observe(iframe.contentWindow.document.body, ["focus", "blur"], function() { ... });
  */
-wysihtml5.dom.observe = function(element, eventNames, handler) {
+textarea_editor.dom.observe = function(element, eventNames, handler) {
   eventNames = typeof(eventNames) === "string" ? [eventNames] : eventNames;
   
   var handlerWrapper,
@@ -4704,7 +4689,7 @@ wysihtml5.dom.observe = function(element, eventNames, handler) {
  *
  * @example
  *    var userHTML = '<div id="foo" onclick="alert(1);"><p><font color="red">foo</font><script>alert(1);</script></p></div>';
- *    wysihtml5.dom.parse(userHTML, {
+ *    textarea_editor.dom.parse(userHTML, {
  *      tags {
  *        p:      "div",      // Rename p tags to div tags
  *        font:   "span"      // Rename font tags to span tags
@@ -4715,11 +4700,11 @@ wysihtml5.dom.observe = function(element, eventNames, handler) {
  *    // => <div><div><span>foo bar</span></div></div>
  *
  *    var userHTML = '<table><tbody><tr><td>I'm a table!</td></tr></tbody></table>';
- *    wysihtml5.dom.parse(userHTML);
+ *    textarea_editor.dom.parse(userHTML);
  *    // => '<span><span><span><span>I'm a table!</span></span></span></span>'
  *
  *    var userHTML = '<div>foobar<br>foobar</div>';
- *    wysihtml5.dom.parse(userHTML, {
+ *    textarea_editor.dom.parse(userHTML, {
  *      tags: {
  *        div: undefined,
  *        br:  true
@@ -4728,7 +4713,7 @@ wysihtml5.dom.observe = function(element, eventNames, handler) {
  *    // => ''
  *
  *    var userHTML = '<div class="red">foo</div><div class="pink">bar</div>';
- *    wysihtml5.dom.parse(userHTML, {
+ *    textarea_editor.dom.parse(userHTML, {
  *      classes: {
  *        red:    1,
  *        green:  1
@@ -4741,7 +4726,7 @@ wysihtml5.dom.observe = function(element, eventNames, handler) {
  *    });
  *    // => '<p class="red">foo</p><p>bar</p>'
  */
-wysihtml5.dom.parse = (function() {
+textarea_editor.dom.parse = (function() {
   
   /**
    * It's not possible to use a XMLParser/DOMParser as HTML5 is not always well-formed XML
@@ -4765,7 +4750,7 @@ wysihtml5.dom.parse = (function() {
    * which later replaces the entire body content
    */
   function parse(elementOrHtml, rules, context, cleanUp) {
-    wysihtml5.lang.object(currentRules).merge(defaultRules).merge(rules).get();
+    textarea_editor.lang.object(currentRules).merge(defaultRules).merge(rules).get();
     
     context           = context || elementOrHtml.ownerDocument || document;
     var fragment      = context.createDocumentFragment(),
@@ -4775,7 +4760,7 @@ wysihtml5.dom.parse = (function() {
         firstChild;
     
     if (isString) {
-      element = wysihtml5.dom.getAsDom(elementOrHtml, context);
+      element = textarea_editor.dom.getAsDom(elementOrHtml, context);
     } else {
       element = elementOrHtml;
     }
@@ -4795,7 +4780,7 @@ wysihtml5.dom.parse = (function() {
     // Insert new DOM tree
     element.appendChild(fragment);
     
-    return isString ? wysihtml5.quirks.getCorrectInnerHTML(element) : element;
+    return isString ? textarea_editor.quirks.getCorrectInnerHTML(element) : element;
   }
   
   function _convert(oldNode, cleanUp) {
@@ -4842,12 +4827,12 @@ wysihtml5.dom.parse = (function() {
      * We already parsed that element
      * ignore it! (yes, this sometimes happens in IE8 when the html is invalid)
      */
-    if (oldNode._wysihtml5) {
+    if (oldNode._textarea_editor) {
       return null;
     }
-    oldNode._wysihtml5 = 1;
+    oldNode._textarea_editor = 1;
     
-    if (oldNode.className === "wysihtml5-temp") {
+    if (oldNode.className === "textarea_editor-temp") {
       return null;
     }
     
@@ -4867,7 +4852,7 @@ wysihtml5.dom.parse = (function() {
      * A <p> doesn't need to be closed according HTML4-5 spec, we simply replace it with a <div> to preserve its content and layout
      */
     if ("outerHTML" in oldNode) {
-      if (!wysihtml5.browser.autoClosesUnclosedTags() &&
+      if (!textarea_editor.browser.autoClosesUnclosedTags() &&
           oldNode.nodeName === "P" &&
           oldNode.outerHTML.slice(-4).toLowerCase() !== "</p>") {
         nodeName = "div";
@@ -4916,7 +4901,7 @@ wysihtml5.dom.parse = (function() {
         method;
     
     if (setAttributes) {
-      attributes = wysihtml5.lang.object(setAttributes).clone();
+      attributes = textarea_editor.lang.object(setAttributes).clone();
     }
     
     if (checkAttributes) {
@@ -4949,8 +4934,8 @@ wysihtml5.dom.parse = (function() {
       }
     }
     
-    // make sure that wysihtml5 temp class doesn't get stripped out
-    allowedClasses["_wysihtml5-temp-placeholder"] = 1;
+    // make sure that textarea_editor temp class doesn't get stripped out
+    allowedClasses["_textarea_editor-temp-placeholder"] = 1;
     
     // add old classes last
     oldClasses = oldNode.getAttribute("class");
@@ -4969,7 +4954,7 @@ wysihtml5.dom.parse = (function() {
     newClassesLength = newClasses.length;
     while (newClassesLength--) {
       currentClass = newClasses[newClassesLength];
-      if (!wysihtml5.lang.array(newUniqueClasses).contains(currentClass)) {
+      if (!textarea_editor.lang.array(newUniqueClasses).contains(currentClass)) {
         newUniqueClasses.unshift(currentClass);
       }
     }
@@ -5007,7 +4992,7 @@ wysihtml5.dom.parse = (function() {
    *
    * Therefore we have to check the element's outerHTML for the attribute
    */
-  var HAS_GET_ATTRIBUTE_BUG = !wysihtml5.browser.supportsGetAttributeCorrectly();
+  var HAS_GET_ATTRIBUTE_BUG = !textarea_editor.browser.supportsGetAttributeCorrectly();
   function _getAttribute(node, attributeName) {
     attributeName = attributeName.toLowerCase();
     var nodeName = node.nodeName;
@@ -5141,16 +5126,16 @@ wysihtml5.dom.parse = (function() {
  *
  * @param {Element} node The element in which to cleanup
  * @example
- *    wysihtml5.dom.removeEmptyTextNodes(element);
+ *    textarea_editor.dom.removeEmptyTextNodes(element);
  */
-wysihtml5.dom.removeEmptyTextNodes = function(node) {
+textarea_editor.dom.removeEmptyTextNodes = function(node) {
   var childNode,
-      childNodes        = wysihtml5.lang.array(node.childNodes).get(),
+      childNodes        = textarea_editor.lang.array(node.childNodes).get(),
       childNodesLength  = childNodes.length,
       i                 = 0;
   for (; i<childNodesLength; i++) {
     childNode = childNodes[i];
-    if (childNode.nodeType === wysihtml5.TEXT_NODE && childNode.data === "") {
+    if (childNode.nodeType === textarea_editor.TEXT_NODE && childNode.data === "") {
       childNode.parentNode.removeChild(childNode);
     }
   }
@@ -5170,7 +5155,7 @@ wysihtml5.dom.removeEmptyTextNodes = function(node) {
  *    </ul>
  *
  *    <script>
- *      wysihtml5.dom.renameElement(document.getElementById("list"), "ol");
+ *      textarea_editor.dom.renameElement(document.getElementById("list"), "ol");
  *    </script>
  *
  *    <!-- Will result in: -->
@@ -5180,13 +5165,13 @@ wysihtml5.dom.removeEmptyTextNodes = function(node) {
  *      <li>50 Cent</li>
  *    </ol>
  */
-wysihtml5.dom.renameElement = function(element, newNodeName) {
+textarea_editor.dom.renameElement = function(element, newNodeName) {
   var newElement = element.ownerDocument.createElement(newNodeName),
       firstChild;
   while (firstChild = element.firstChild) {
     newElement.appendChild(firstChild);
   }
-  wysihtml5.dom.copyAttributes(["align", "className"]).from(element).to(newElement);
+  textarea_editor.dom.copyAttributes(["align", "className"]).from(element).to(newElement);
   element.parentNode.replaceChild(newElement, element);
   return newElement;
 };/**
@@ -5199,10 +5184,10 @@ wysihtml5.dom.renameElement = function(element, newNodeName) {
  *    </div>
  *    <script>
  *      // Remove #foo and replace with it's children
- *      wysihtml5.dom.replaceWithChildNodes(document.getElementById("foo"));
+ *      textarea_editor.dom.replaceWithChildNodes(document.getElementById("foo"));
  *    </script>
  */
-wysihtml5.dom.replaceWithChildNodes = function(node) {
+textarea_editor.dom.replaceWithChildNodes = function(node) {
   if (!node.parentNode) {
     return;
   }
@@ -5233,7 +5218,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
  *    </ul>
  *
  *    <script>
- *      wysihtml5.dom.resolveList(document.getElementById("list"));
+ *      textarea_editor.dom.resolveList(document.getElementById("list"));
  *    </script>
  *
  *    <!-- Will result in: -->
@@ -5291,7 +5276,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
   }
   
   dom.resolveList = resolveList;
-})(wysihtml5.dom);/**
+})(textarea_editor.dom);/**
  * Sandbox for executing javascript, parsing css styles and doing dom operations in a secure way
  *
  * Browser Compatibility:
@@ -5309,11 +5294,11 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
  * @param {Object} [config] Optional parameters
  *
  * @example
- *    new wysihtml5.dom.Sandbox(function(sandbox) {
+ *    new textarea_editor.dom.Sandbox(function(sandbox) {
  *      sandbox.getWindow().document.body.innerHTML = '<img src=foo.gif onerror="alert(document.cookie)">';
  *    });
  */
-(function(wysihtml5) {
+(function(textarea_editor) {
   var /**
        * Default configuration
        */
@@ -5342,12 +5327,12 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
         "write", "open", "close"
       ];
   
-  wysihtml5.dom.Sandbox = Base.extend(
-    /** @scope wysihtml5.dom.Sandbox.prototype */ {
+  textarea_editor.dom.Sandbox = Base.extend(
+    /** @scope textarea_editor.dom.Sandbox.prototype */ {
 
     constructor: function(readyCallback, config) {
-      this.callback = readyCallback || wysihtml5.EMPTY_FUNCTION;
-      this.config   = wysihtml5.lang.object({}).merge(config).get();
+      this.callback = readyCallback || textarea_editor.EMPTY_FUNCTION;
+      this.config   = textarea_editor.lang.object({}).merge(config).get();
       this.iframe   = this._createIframe();
     },
     
@@ -5377,7 +5362,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
     },
 
     _readyError: function() {
-      throw new Error("wysihtml5.Sandbox: Sandbox iframe isn't loaded yet");
+      throw new Error("textarea_editor.Sandbox: Sandbox iframe isn't loaded yet");
     },
 
     /**
@@ -5402,8 +5387,8 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
     _createIframe: function() {
       var that   = this,
           iframe = doc.createElement("iframe");
-      iframe.className = "wysihtml5-sandbox";
-      wysihtml5.dom.setAttributes({
+      iframe.className = "textarea_editor-sandbox";
+      textarea_editor.dom.setAttributes({
         "security":           "restricted",
         "allowtransparency":  "true",
         "frameborder":        0,
@@ -5414,7 +5399,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
       }).on(iframe);
 
       // Setting the src like this prevents ssl warnings in IE6
-      if (wysihtml5.browser.throwsMixedContentWarningWhenIframeSrcIsEmpty()) {
+      if (textarea_editor.browser.throwsMixedContentWarningWhenIframeSrcIsEmpty()) {
         iframe.src = "javascript:'<html></html>'";
       }
 
@@ -5438,7 +5423,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
      */
     _onLoadIframe: function(iframe) {
       // don't resume when the iframe got unloaded (eg. by removing it from the dom)
-      if (!wysihtml5.dom.contains(doc.documentElement, iframe)) {
+      if (!textarea_editor.dom.contains(doc.documentElement, iframe)) {
         return;
       }
 
@@ -5463,10 +5448,10 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
       // addEventListener("error") doesn't work properly in some browsers
       // TODO: apparently this doesn't work in IE9!
       iframeWindow.onerror = function(errorMessage, fileName, lineNumber) {
-        throw new Error("wysihtml5.Sandbox: " + errorMessage, fileName, lineNumber);
+        throw new Error("textarea_editor.Sandbox: " + errorMessage, fileName, lineNumber);
       };
 
-      if (!wysihtml5.browser.supportsSandboxedIframes()) {
+      if (!textarea_editor.browser.supportsSandboxedIframes()) {
         // Unset a bunch of sensitive variables
         // Please note: This isn't hack safe!  
         // It more or less just takes care of basic attacks and prevents accidental theft of sensitive information
@@ -5478,7 +5463,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
           this._unset(iframeWindow, windowProperties[i]);
         }
         for (i=0, length=windowProperties2.length; i<length; i++) {
-          this._unset(iframeWindow, windowProperties2[i], wysihtml5.EMPTY_FUNCTION);
+          this._unset(iframeWindow, windowProperties2[i], textarea_editor.EMPTY_FUNCTION);
         }
         for (i=0, length=documentProperties.length; i<length; i++) {
           this._unset(iframeDocument, documentProperties[i]);
@@ -5508,7 +5493,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
       }
       templateVars.stylesheets = html;
 
-      return wysihtml5.lang.string(
+      return textarea_editor.lang.string(
         '<!DOCTYPE html><html><head>'
         + '<meta charset="#{charset}">#{stylesheets}</head>'
         + '<body></body></html>'
@@ -5529,7 +5514,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
         try { object.__defineSetter__(property, function() {}); } catch(e) {}
       }
 
-      if (!wysihtml5.browser.crashesWhenDefineProperty(property)) {
+      if (!textarea_editor.browser.crashesWhenDefineProperty(property)) {
         try {
           var config = {
             get: function() { return value; }
@@ -5542,12 +5527,12 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
       }
     }
   });
-})(wysihtml5);
+})(textarea_editor);
 (function() {
   var mapping = {
     "className": "class"
   };
-  wysihtml5.dom.setAttributes = function(attributes) {
+  textarea_editor.dom.setAttributes = function(attributes) {
     return {
       on: function(element) {
         for (var i in attributes) {
@@ -5556,7 +5541,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
       }
     }
   };
-})();wysihtml5.dom.setStyles = function(styles) {
+})();textarea_editor.dom.setStyles = function(styles) {
   return {
     on: function(element) {
       var style = element.style;
@@ -5581,8 +5566,8 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
  *    - div[contentEditable] elements don't support it
  *    - older browsers (such as IE8 and Firefox 3.6) don't support it at all
  *
- * @param {Object} parent Instance of main wysihtml5.Editor class
- * @param {Element} view Instance of wysihtml5.views.* class
+ * @param {Object} parent Instance of main textarea_editor.Editor class
+ * @param {Element} view Instance of textarea_editor.views.* class
  * @param {String} placeholderText
  *
  * @example
@@ -5613,7 +5598,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
 
     set();
   };
-})(wysihtml5.dom);
+})(textarea_editor.dom);
 (function(dom) {
   var documentElement = document.documentElement;
   if ("textContent" in documentElement) {
@@ -5641,7 +5626,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
       return element.nodeValue;
     };
   }
-})(wysihtml5.dom);
+})(textarea_editor.dom);
 
 /**
  * Fix most common html formatting misbehaviors of browsers implementation when inserting
@@ -5649,11 +5634,11 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
  *
  * @author Christopher Blum
  */
-wysihtml5.quirks.cleanPastedHTML = (function() {
+textarea_editor.quirks.cleanPastedHTML = (function() {
   // TODO: We probably need more rules here
   var defaultRules = {
     // When pasting underlined links <a> into a contentEditable, IE thinks, it has to insert <u> to keep the styling
-    "a u": wysihtml5.dom.replaceWithChildNodes
+    "a u": textarea_editor.dom.replaceWithChildNodes
   };
   
   function cleanPastedHTML(elementOrHtml, rules, context) {
@@ -5668,7 +5653,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
         i,
         j = 0;
     if (isString) {
-      element = wysihtml5.dom.getAsDom(elementOrHtml, context);
+      element = textarea_editor.dom.getAsDom(elementOrHtml, context);
     } else {
       element = elementOrHtml;
     }
@@ -5693,12 +5678,12 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
  *
  * @param {Object} contentEditableElement The contentEditable element to observe for clearing events
  * @exaple
- *    wysihtml5.quirks.ensureProperClearing(myContentEditableElement);
+ *    textarea_editor.quirks.ensureProperClearing(myContentEditableElement);
  */
-(function(wysihtml5) {
-  var dom = wysihtml5.dom;
+(function(textarea_editor) {
+  var dom = textarea_editor.dom;
   
-  wysihtml5.quirks.ensureProperClearing = (function() {
+  textarea_editor.quirks.ensureProperClearing = (function() {
     var clearIfNecessary = function(event) {
       var element = this;
       setTimeout(function() {
@@ -5722,13 +5707,13 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
    *
    * @param {Object} contentEditableElement The contentEditable element to observe for clearing events
    * @exaple
-   *    wysihtml5.quirks.ensureProperClearing(myContentEditableElement);
+   *    textarea_editor.quirks.ensureProperClearing(myContentEditableElement);
    */
-  wysihtml5.quirks.ensureProperClearingOfLists = (function() {
+  textarea_editor.quirks.ensureProperClearingOfLists = (function() {
     var ELEMENTS_THAT_CONTAIN_LI = ["OL", "UL", "MENU"];
 
     var clearIfNecessary = function(element, contentEditableElement) {
-      if (!contentEditableElement.firstChild || !wysihtml5.lang.array(ELEMENTS_THAT_CONTAIN_LI).contains(contentEditableElement.firstChild.nodeName)) {
+      if (!contentEditableElement.firstChild || !textarea_editor.lang.array(ELEMENTS_THAT_CONTAIN_LI).contains(contentEditableElement.firstChild.nodeName)) {
         return;
       }
 
@@ -5757,7 +5742,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
 
     return function(composer) {
       dom.observe(composer.element, "keydown", function(event) {
-        if (event.keyCode !== wysihtml5.BACKSPACE_KEY) {
+        if (event.keyCode !== textarea_editor.BACKSPACE_KEY) {
           return;
         }
 
@@ -5767,7 +5752,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     };
   })();
 
-})(wysihtml5);
+})(textarea_editor);
 // See https://bugzilla.mozilla.org/show_bug.cgi?id=664398
 //
 // In Firefox this:
@@ -5777,9 +5762,9 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
 // will result in:
 //      <a href="%7E"></a>
 // which is wrong
-(function(wysihtml5) {
+(function(textarea_editor) {
   var TILDE_ESCAPED = "%7E";
-  wysihtml5.quirks.getCorrectInnerHTML = function(element) {
+  textarea_editor.quirks.getCorrectInnerHTML = function(element) {
     var innerHTML = element.innerHTML;
     if (innerHTML.indexOf(TILDE_ESCAPED) === -1) {
       return innerHTML;
@@ -5792,12 +5777,12 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
         i;
     for (i=0, length=elementsWithTilde.length; i<length; i++) {
       url         = elementsWithTilde[i].href || elementsWithTilde[i].src;
-      urlToSearch = wysihtml5.lang.string(url).replace("~").by(TILDE_ESCAPED);
-      innerHTML   = wysihtml5.lang.string(innerHTML).replace(urlToSearch).by(url);
+      urlToSearch = textarea_editor.lang.string(url).replace("~").by(TILDE_ESCAPED);
+      innerHTML   = textarea_editor.lang.string(innerHTML).replace(urlToSearch).by(url);
     }
     return innerHTML;
   };
-})(wysihtml5);/**
+})(textarea_editor);/**
  * Some browsers don't insert line breaks when hitting return in a contentEditable element
  *    - Opera & IE insert new <p> on return
  *    - Chrome & Safari insert new <div> on return
@@ -5806,21 +5791,21 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
  * @param {Element} element
  *
  * @example
- *    wysihtml5.quirks.insertLineBreakOnReturn(element);
+ *    textarea_editor.quirks.insertLineBreakOnReturn(element);
  */
-(function(wysihtml5) {
-  var dom                                           = wysihtml5.dom,
+(function(textarea_editor) {
+  var dom                                           = textarea_editor.dom,
       USE_NATIVE_LINE_BREAK_WHEN_CARET_INSIDE_TAGS  = ["LI", "P", "H1", "H2", "H3", "H4", "H5", "H6"],
       LIST_TAGS                                     = ["UL", "OL", "MENU"];
   
-  wysihtml5.quirks.insertLineBreakOnReturn = function(composer) {
+  textarea_editor.quirks.insertLineBreakOnReturn = function(composer) {
     function unwrap(selectedNode) {
       var parentElement = dom.getParentElement(selectedNode, { nodeName: ["P", "DIV"] }, 2);
       if (!parentElement) {
         return;
       }
 
-      var invisibleSpace = document.createTextNode(wysihtml5.INVISIBLE_SPACE);
+      var invisibleSpace = document.createTextNode(textarea_editor.INVISIBLE_SPACE);
       dom.insert(invisibleSpace).before(parentElement);
       dom.replaceWithChildNodes(parentElement);
       composer.selection.selectNode(invisibleSpace);
@@ -5828,7 +5813,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
 
     function keyDown(event) {
       var keyCode = event.keyCode;
-      if (event.shiftKey || (keyCode !== wysihtml5.ENTER_KEY && keyCode !== wysihtml5.BACKSPACE_KEY)) {
+      if (event.shiftKey || (keyCode !== textarea_editor.ENTER_KEY && keyCode !== textarea_editor.BACKSPACE_KEY)) {
         return;
       }
 
@@ -5838,7 +5823,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
       if (blockElement) {
         // Some browsers create <p> elements after leaving a list
         // check after keydown of backspace and return whether a <p> got inserted and unwrap it
-        if (blockElement.nodeName === "LI" && (keyCode === wysihtml5.ENTER_KEY || keyCode === wysihtml5.BACKSPACE_KEY)) {
+        if (blockElement.nodeName === "LI" && (keyCode === textarea_editor.ENTER_KEY || keyCode === textarea_editor.BACKSPACE_KEY)) {
           setTimeout(function() {
             var selectedNode = composer.selection.getSelectedNode(),
                 list,
@@ -5857,7 +5842,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
 
             unwrap(selectedNode);
           }, 0);
-        } else if (blockElement.nodeName.match(/H[1-6]/) && keyCode === wysihtml5.ENTER_KEY) {
+        } else if (blockElement.nodeName.match(/H[1-6]/) && keyCode === textarea_editor.ENTER_KEY) {
           setTimeout(function() {
             unwrap(composer.selection.getSelectedNode());
           }, 0);
@@ -5865,7 +5850,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
         return;
       }
 
-      if (keyCode === wysihtml5.ENTER_KEY && !wysihtml5.browser.insertsLineBreaksOnReturn()) {
+      if (keyCode === textarea_editor.ENTER_KEY && !textarea_editor.browser.insertsLineBreaksOnReturn()) {
         composer.commands.exec("insertLineBreak");
         event.preventDefault();
       }
@@ -5874,20 +5859,20 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     // keypress doesn't fire when you hit backspace
     dom.observe(composer.element.ownerDocument, "keydown", keyDown);
   };
-})(wysihtml5);/**
+})(textarea_editor);/**
  * Force rerendering of a given element
  * Needed to fix display misbehaviors of IE
  *
  * @param {Element} element The element object which needs to be rerendered
  * @example
- *    wysihtml5.quirks.redraw(document.body);
+ *    textarea_editor.quirks.redraw(document.body);
  */
-(function(wysihtml5) {
-  var CLASS_NAME = "wysihtml5-quirks-redraw";
+(function(textarea_editor) {
+  var CLASS_NAME = "textarea_editor-quirks-redraw";
   
-  wysihtml5.quirks.redraw = function(element) {
-    wysihtml5.dom.addClass(element, CLASS_NAME);
-    wysihtml5.dom.removeClass(element, CLASS_NAME);
+  textarea_editor.quirks.redraw = function(element) {
+    textarea_editor.dom.addClass(element, CLASS_NAME);
+    textarea_editor.dom.removeClass(element, CLASS_NAME);
     
     // Following hack is needed for firefox to make sure that image resize handles are properly removed
     try {
@@ -5896,14 +5881,14 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
       doc.execCommand("italic", false, null);
     } catch(e) {}
   };
-})(wysihtml5);/**
+})(textarea_editor);/**
  * Selection API
  *
  * @example
- *    var selection = new wysihtml5.Selection(editor);
+ *    var selection = new textarea_editor.Selection(editor);
  */
-(function(wysihtml5) {
-  var dom = wysihtml5.dom;
+(function(textarea_editor) {
+  var dom = textarea_editor.dom;
   
   function _getCumulativeOffsetTop(element) {
     var top = 0;
@@ -5916,8 +5901,8 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     return top;
   }
   
-  wysihtml5.Selection = Base.extend(
-    /** @scope wysihtml5.Selection.prototype */ {
+  textarea_editor.Selection = Base.extend(
+    /** @scope textarea_editor.Selection.prototype */ {
     constructor: function(editor) {
       // Make sure that our external range library is initialized
       window.rangy.init();
@@ -5938,7 +5923,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     },
 
     /**
-     * Restore a selection retrieved via wysihtml5.Selection.prototype.getBookmark
+     * Restore a selection retrieved via textarea_editor.Selection.prototype.getBookmark
      *
      * @param {Object} bookmark An object that represents the current selection
      */
@@ -5987,16 +5972,16 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
      */
     selectNode: function(node) {
       var range           = rangy.createRange(this.doc),
-          isElement       = node.nodeType === wysihtml5.ELEMENT_NODE,
+          isElement       = node.nodeType === textarea_editor.ELEMENT_NODE,
           canHaveHTML     = "canHaveHTML" in node ? node.canHaveHTML : (node.nodeName !== "IMG"),
           content         = isElement ? node.innerHTML : node.data,
-          isEmpty         = (content === "" || content === wysihtml5.INVISIBLE_SPACE),
+          isEmpty         = (content === "" || content === textarea_editor.INVISIBLE_SPACE),
           displayStyle    = dom.getStyle("display").from(node),
           isBlockElement  = (displayStyle === "block" || displayStyle === "list-item");
 
       if (isEmpty && isElement && canHaveHTML) {
         // Make sure that caret is visible in node by inserting a zero width no breaking space
-        try { node.innerHTML = wysihtml5.INVISIBLE_SPACE; } catch(e) {}
+        try { node.innerHTML = textarea_editor.INVISIBLE_SPACE; } catch(e) {}
       }
 
       if (canHaveHTML) {
@@ -6047,8 +6032,8 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
       var body                  = this.doc.body,
           oldScrollTop          = restoreScrollPosition && body.scrollTop,
           oldScrollLeft         = restoreScrollPosition && body.scrollLeft,
-          className             = "_wysihtml5-temp-placeholder",
-          placeholderHTML       = '<span class="' + className + '">' + wysihtml5.INVISIBLE_SPACE + '</span>',
+          className             = "_textarea_editor-temp-placeholder",
+          placeholderHTML       = '<span class="' + className + '">' + textarea_editor.INVISIBLE_SPACE + '</span>',
           range                 = this.getRange(this.doc),
           newRange;
       
@@ -6196,10 +6181,10 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     scrollIntoView: function() {
       var doc           = this.doc,
           hasScrollBars = doc.documentElement.scrollHeight > doc.documentElement.offsetHeight,
-          tempElement   = doc._wysihtml5ScrollIntoViewElement = doc._wysihtml5ScrollIntoViewElement || (function() {
+          tempElement   = doc._textarea_editorScrollIntoViewElement = doc._textarea_editorScrollIntoViewElement || (function() {
             var element = doc.createElement("span");
             // The element needs content in order to be able to calculate it's position properly
-            element.innerHTML = wysihtml5.INVISIBLE_SPACE;
+            element.innerHTML = textarea_editor.INVISIBLE_SPACE;
             return element;
           })(),
           offsetTop;
@@ -6218,7 +6203,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
      * Select line where the caret is in
      */
     selectLine: function() {
-      if (wysihtml5.browser.supportsSelectionModify()) {
+      if (textarea_editor.browser.supportsSelectionModify()) {
         this._selectLine_W3C();
       } else if (this.doc.selection) {
         this._selectLine_MSIE();
@@ -6313,7 +6298,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     }
   });
   
-})(wysihtml5);
+})(textarea_editor);
 /**
  * Inspired by the rangy CSS Applier module written by Tim Down and licensed under the MIT license.
  * http://code.google.com/p/rangy/
@@ -6322,7 +6307,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
  *    - to use custom tags
  *    - to detect and replace similar css classes via reg exp
  */
-(function(wysihtml5, rangy) {
+(function(textarea_editor, rangy) {
   var defaultTagName = "span";
   
   var REG_EXP_WHITE_SPACE = /\s+/g;
@@ -6425,7 +6410,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
   }
   
   function Merge(firstNode) {
-    this.isElementMerge = (firstNode.nodeType == wysihtml5.ELEMENT_NODE);
+    this.isElementMerge = (firstNode.nodeType == textarea_editor.ELEMENT_NODE);
     this.firstTextNode = this.isElementMerge ? firstNode.lastChild : firstNode;
     this.textNodes = [this.firstTextNode];
   }
@@ -6478,7 +6463,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
       var cssClassMatch;
       while (node) {
         cssClassMatch = this.cssClass ? hasClass(node, this.cssClass, this.similarClassRegExp) : true;
-        if (node.nodeType == wysihtml5.ELEMENT_NODE && rangy.dom.arrayContains(this.tagNames, node.tagName.toLowerCase()) && cssClassMatch) {
+        if (node.nodeType == textarea_editor.ELEMENT_NODE && rangy.dom.arrayContains(this.tagNames, node.tagName.toLowerCase()) && cssClassMatch) {
           return node;
         }
         node = node.parentNode;
@@ -6541,14 +6526,14 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     },
     
     getAdjacentMergeableTextNode: function(node, forward) {
-        var isTextNode = (node.nodeType == wysihtml5.TEXT_NODE);
+        var isTextNode = (node.nodeType == textarea_editor.TEXT_NODE);
         var el = isTextNode ? node.parentNode : node;
         var adjacentNode;
         var propName = forward ? "nextSibling" : "previousSibling";
         if (isTextNode) {
           // Can merge if the node's previous/next sibling is a text node
           adjacentNode = node[propName];
-          if (adjacentNode && adjacentNode.nodeType == wysihtml5.TEXT_NODE) {
+          if (adjacentNode && adjacentNode.nodeType == textarea_editor.TEXT_NODE) {
             return adjacentNode;
           }
         } else {
@@ -6590,7 +6575,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     },
 
     isRemovable: function(el) {
-      return rangy.dom.arrayContains(this.tagNames, el.tagName.toLowerCase()) && wysihtml5.lang.string(el.className).trim() == this.cssClass;
+      return rangy.dom.arrayContains(this.tagNames, el.tagName.toLowerCase()) && textarea_editor.lang.string(el.className).trim() == this.cssClass;
     },
 
     undoToTextNode: function(textNode, range, ancestorWithClass) {
@@ -6617,7 +6602,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     },
 
     applyToRange: function(range) {
-        var textNodes = range.getNodes([wysihtml5.TEXT_NODE]);
+        var textNodes = range.getNodes([textarea_editor.TEXT_NODE]);
         if (!textNodes.length) {
           try {
             var node = this.createContainer(range.endContainer.ownerDocument);
@@ -6628,7 +6613,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
         }
         
         range.splitBoundaries();
-        textNodes = range.getNodes([wysihtml5.TEXT_NODE]);
+        textNodes = range.getNodes([textarea_editor.TEXT_NODE]);
         
         if (textNodes.length) {
           var textNode;
@@ -6651,13 +6636,13 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     },
 
     undoToRange: function(range) {
-      var textNodes = range.getNodes([wysihtml5.TEXT_NODE]), textNode, ancestorWithClass;
+      var textNodes = range.getNodes([textarea_editor.TEXT_NODE]), textNode, ancestorWithClass;
       if (textNodes.length) {
         range.splitBoundaries();
-        textNodes = range.getNodes([wysihtml5.TEXT_NODE]);
+        textNodes = range.getNodes([textarea_editor.TEXT_NODE]);
       } else {
         var doc = range.endContainer.ownerDocument,
-            node = doc.createTextNode(wysihtml5.INVISIBLE_SPACE);
+            node = doc.createTextNode(textarea_editor.INVISIBLE_SPACE);
         range.insertNode(node);
         range.selectNode(node);
         textNodes = [node];
@@ -6685,14 +6670,14 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     },
     
     selectNode: function(range, node) {
-      var isElement       = node.nodeType === wysihtml5.ELEMENT_NODE,
+      var isElement       = node.nodeType === textarea_editor.ELEMENT_NODE,
           canHaveHTML     = "canHaveHTML" in node ? node.canHaveHTML : true,
           content         = isElement ? node.innerHTML : node.data,
-          isEmpty         = (content === "" || content === wysihtml5.INVISIBLE_SPACE);
+          isEmpty         = (content === "" || content === textarea_editor.INVISIBLE_SPACE);
 
       if (isEmpty && isElement && canHaveHTML) {
         // Make sure that caret is visible in node by inserting a zero width no breaking space
-        try { node.innerHTML = wysihtml5.INVISIBLE_SPACE; } catch(e) {}
+        try { node.innerHTML = textarea_editor.INVISIBLE_SPACE; } catch(e) {}
       }
       range.selectNodeContents(node);
       if (isEmpty && isElement) {
@@ -6717,7 +6702,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     isAppliedToRange: function(range) {
       var ancestors = [],
           ancestor,
-          textNodes = range.getNodes([wysihtml5.TEXT_NODE]);
+          textNodes = range.getNodes([textarea_editor.TEXT_NODE]);
       if (!textNodes.length) {
         ancestor = this.getAncestorWithClass(range.startContainer);
         return ancestor ? [ancestor] : false;
@@ -6744,16 +6729,16 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
     }
   };
 
-  wysihtml5.selection.HTMLApplier = HTMLApplier;
+  textarea_editor.selection.HTMLApplier = HTMLApplier;
   
-})(wysihtml5, rangy);/**
+})(textarea_editor, rangy);/**
  * Rich Text Query/Formatting Commands
  * 
  * @example
- *    var commands = new wysihtml5.Commands(editor);
+ *    var commands = new textarea_editor.Commands(editor);
  */
-wysihtml5.Commands = Base.extend(
-  /** @scope wysihtml5.Commands.prototype */ {
+textarea_editor.Commands = Base.extend(
+  /** @scope textarea_editor.Commands.prototype */ {
   constructor: function(editor) {
     this.editor   = editor;
     this.composer = editor.composer;
@@ -6768,7 +6753,7 @@ wysihtml5.Commands = Base.extend(
    *    commands.supports("createLink");
    */
   support: function(command) {
-    return wysihtml5.browser.supportsCommand(this.doc, command);
+    return textarea_editor.browser.supportsCommand(this.doc, command);
   },
   
   /**
@@ -6780,8 +6765,8 @@ wysihtml5.Commands = Base.extend(
    *    commands.exec("insertImage", "http://a1.twimg.com/profile_images/113868655/schrei_twitter_reasonably_small.jpg");
    */
   exec: function(command, value) {
-    var obj     = wysihtml5.commands[command],
-        args    = wysihtml5.lang.array(arguments).get(),
+    var obj     = textarea_editor.commands[command],
+        args    = textarea_editor.lang.array(arguments).get(),
         method  = obj && obj.exec,
         result  = null;
     
@@ -6812,8 +6797,8 @@ wysihtml5.Commands = Base.extend(
    *    var isCurrentSelectionBold = commands.state("bold");
    */
   state: function(command, commandValue) {
-    var obj     = wysihtml5.commands[command],
-        args    = wysihtml5.lang.array(arguments).get(),
+    var obj     = textarea_editor.commands[command],
+        args    = textarea_editor.lang.array(arguments).get(),
         method  = obj && obj.state;
     if (method) {
       args.unshift(this.composer);
@@ -6837,7 +6822,7 @@ wysihtml5.Commands = Base.extend(
    *    var currentBlockElement = commands.value("formatBlock");
    */
   value: function(command) {
-    var obj     = wysihtml5.commands[command],
+    var obj     = textarea_editor.commands[command],
         method  = obj && obj.value;
     if (method) {
       return method.call(obj, this.composer, command);
@@ -6851,12 +6836,12 @@ wysihtml5.Commands = Base.extend(
     }
   }
 });
-(function(wysihtml5) {
+(function(textarea_editor) {
   var undef;
   
-  wysihtml5.commands.bold = {
+  textarea_editor.commands.bold = {
     exec: function(composer, command) {
-      return wysihtml5.commands.formatInline.exec(composer, command, "b");
+      return textarea_editor.commands.formatInline.exec(composer, command, "b");
     },
 
     state: function(composer, command, color) {
@@ -6865,19 +6850,19 @@ wysihtml5.Commands = Base.extend(
       // chrome:  <b>, <strong>, <h1>, <h2>, ...
       // ie:      <b>, <strong>
       // opera:   <b>, <strong>
-      return wysihtml5.commands.formatInline.state(composer, command, "b");
+      return textarea_editor.commands.formatInline.state(composer, command, "b");
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);
+})(textarea_editor);
 
-(function(wysihtml5) {
+(function(textarea_editor) {
   var undef,
       NODE_NAME = "A",
-      dom       = wysihtml5.dom;
+      dom       = textarea_editor.dom;
   
   function _removeFormat(composer, anchors) {
     var length  = anchors.length,
@@ -6903,7 +6888,7 @@ wysihtml5.Commands = Base.extend(
 
   function _format(composer, attributes) {
     var doc             = composer.doc,
-        tempClass       = "_wysihtml5-temp-" + (+new Date()),
+        tempClass       = "_textarea_editor-temp-" + (+new Date()),
         tempClassRegExp = /non-matching-class/g,
         i               = 0,
         length,
@@ -6915,7 +6900,7 @@ wysihtml5.Commands = Base.extend(
         textContent,
         whiteSpace,
         j;
-    wysihtml5.commands.formatInline.exec(composer, undef, NODE_NAME, tempClass, tempClassRegExp);
+    textarea_editor.commands.formatInline.exec(composer, undef, NODE_NAME, tempClass, tempClassRegExp);
     anchors = doc.querySelectorAll(NODE_NAME + "." + tempClass);
     length  = anchors.length;
     for (; i<length; i++) {
@@ -6930,7 +6915,7 @@ wysihtml5.Commands = Base.extend(
     if (length === 1) {
       textContent = dom.getTextContent(anchor);
       hasElementChild = !!anchor.querySelector("*");
-      isEmpty = textContent === "" || textContent === wysihtml5.INVISIBLE_SPACE;
+      isEmpty = textContent === "" || textContent === textarea_editor.INVISIBLE_SPACE;
       if (!hasElementChild && isEmpty) {
         dom.setTextContent(anchor, attributes.text || anchor.href);
         whiteSpace = doc.createTextNode(" ");
@@ -6942,7 +6927,7 @@ wysihtml5.Commands = Base.extend(
     composer.selection.setAfter(elementToSetCaretAfter);
   }
   
-  wysihtml5.commands.createLink = {
+  textarea_editor.commands.createLink = {
     /**
      * TODO: Use HTMLApplier or formatInline here
      *
@@ -6952,9 +6937,9 @@ wysihtml5.Commands = Base.extend(
      * 
      * @example
      *    // either ...
-     *    wysihtml5.commands.createLink.exec(composer, "createLink", "http://www.google.de");
+     *    textarea_editor.commands.createLink.exec(composer, "createLink", "http://www.google.de");
      *    // ... or ...
-     *    wysihtml5.commands.createLink.exec(composer, "createLink", { href: "http://www.google.de", target: "_blank" });
+     *    textarea_editor.commands.createLink.exec(composer, "createLink", { href: "http://www.google.de", target: "_blank" });
      */
     exec: function(composer, command, value) {
       var anchors = this.state(composer, command);
@@ -6971,61 +6956,61 @@ wysihtml5.Commands = Base.extend(
     },
 
     state: function(composer, command) {
-      return wysihtml5.commands.formatInline.state(composer, command, "A");
+      return textarea_editor.commands.formatInline.state(composer, command, "A");
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);/**
+})(textarea_editor);/**
  * document.execCommand("fontSize") will create either inline styles (firefox, chrome) or use font tags
  * which we don't want
  * Instead we set a css class
  */
-(function(wysihtml5) {
+(function(textarea_editor) {
   var undef,
       REG_EXP = /wysiwyg-font-size-[a-z\-]+/g;
   
-  wysihtml5.commands.fontSize = {
+  textarea_editor.commands.fontSize = {
     exec: function(composer, command, size) {
-      return wysihtml5.commands.formatInline.exec(composer, command, "span", "wysiwyg-font-size-" + size, REG_EXP);
+      return textarea_editor.commands.formatInline.exec(composer, command, "span", "wysiwyg-font-size-" + size, REG_EXP);
     },
 
     state: function(composer, command, size) {
-      return wysihtml5.commands.formatInline.state(composer, command, "span", "wysiwyg-font-size-" + size, REG_EXP);
+      return textarea_editor.commands.formatInline.state(composer, command, "span", "wysiwyg-font-size-" + size, REG_EXP);
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);
+})(textarea_editor);
 /**
  * document.execCommand("foreColor") will create either inline styles (firefox, chrome) or use font tags
  * which we don't want
  * Instead we set a css class
  */
-(function(wysihtml5) {
+(function(textarea_editor) {
   var undef,
       REG_EXP = /wysiwyg-color-[a-z]+/g;
   
-  wysihtml5.commands.foreColor = {
+  textarea_editor.commands.foreColor = {
     exec: function(composer, command, color) {
-      return wysihtml5.commands.formatInline.exec(composer, command, "span", "wysiwyg-color-" + color, REG_EXP);
+      return textarea_editor.commands.formatInline.exec(composer, command, "span", "wysiwyg-color-" + color, REG_EXP);
     },
 
     state: function(composer, command, color) {
-      return wysihtml5.commands.formatInline.state(composer, command, "span", "wysiwyg-color-" + color, REG_EXP);
+      return textarea_editor.commands.formatInline.state(composer, command, "span", "wysiwyg-color-" + color, REG_EXP);
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var undef,
-      dom                     = wysihtml5.dom,
+      dom                     = textarea_editor.dom,
       DEFAULT_NODE_NAME       = "DIV",
       // Following elements are grouped
       // when the caret is within a H1 and the H4 is invoked, the H1 should turn into H4
@@ -7053,7 +7038,7 @@ wysihtml5.Commands = Base.extend(
    * Check whether given node is a text node and whether it's empty
    */
   function _isBlankTextNode(node) {
-    return node.nodeType === wysihtml5.TEXT_NODE && !wysihtml5.lang.string(node.data).trim();
+    return node.nodeType === textarea_editor.TEXT_NODE && !textarea_editor.lang.string(node.data).trim();
   }
 
   /**
@@ -7146,7 +7131,7 @@ wysihtml5.Commands = Base.extend(
       var eventListener = dom.observe(doc, "DOMNodeInserted", function(event) {
         var target = event.target,
             displayStyle;
-        if (target.nodeType !== wysihtml5.ELEMENT_NODE) {
+        if (target.nodeType !== textarea_editor.ELEMENT_NODE) {
           return;
         }
         displayStyle = dom.getStyle("display").from(target);
@@ -7171,10 +7156,10 @@ wysihtml5.Commands = Base.extend(
   }
 
   function _hasClasses(element) {
-    return !!wysihtml5.lang.string(element.className).trim();
+    return !!textarea_editor.lang.string(element.className).trim();
   }
   
-  wysihtml5.commands.formatBlock = {
+  textarea_editor.commands.formatBlock = {
     exec: function(composer, command, nodeName, className, classRegExp) {
       var doc          = composer.doc,
           blockElement = this.state(composer, command, nodeName, className, classRegExp),
@@ -7202,7 +7187,7 @@ wysihtml5.Commands = Base.extend(
       }
 
       // Find similiar block element and rename it (<h2 class="foo"></h2>  =>  <h1 class="foo"></h1>)
-      if (nodeName === null || wysihtml5.lang.array(BLOCK_ELEMENTS_GROUP).contains(nodeName)) {
+      if (nodeName === null || textarea_editor.lang.array(BLOCK_ELEMENTS_GROUP).contains(nodeName)) {
         selectedNode = composer.selection.getSelectedNode();
         blockElement = dom.getParentElement(selectedNode, {
           nodeName: BLOCK_ELEMENTS_GROUP
@@ -7248,7 +7233,7 @@ wysihtml5.Commands = Base.extend(
       return undef;
     }
   };
-})(wysihtml5);/**
+})(textarea_editor);/**
  * formatInline scenarios for tag "B" (| = caret, |foo| = selected text)
  *
  *   #1 caret in unformatted text:
@@ -7281,7 +7266,7 @@ wysihtml5.Commands = Base.extend(
  *   output:
  *      <span>ab|c</span> de|<b>fgh</b>
  */
-(function(wysihtml5) {
+(function(textarea_editor) {
   var undef,
       // Treat <b> as <strong> and vice versa
       ALIAS_MAPPING = {
@@ -7300,12 +7285,12 @@ wysihtml5.Commands = Base.extend(
   function _getApplier(tagName, className, classRegExp) {
     var identifier = tagName + ":" + className;
     if (!htmlApplier[identifier]) {
-      htmlApplier[identifier] = new wysihtml5.selection.HTMLApplier(_getTagNames(tagName), className, classRegExp, true);
+      htmlApplier[identifier] = new textarea_editor.selection.HTMLApplier(_getTagNames(tagName), className, classRegExp, true);
     }
     return htmlApplier[identifier];
   }
   
-  wysihtml5.commands.formatInline = {
+  textarea_editor.commands.formatInline = {
     exec: function(composer, command, tagName, className, classRegExp) {
       var range = composer.selection.getRange();
       if (!range) {
@@ -7321,13 +7306,13 @@ wysihtml5.Commands = Base.extend(
           range;
 
       // Check whether the document contains a node with the desired tagName
-      if (!wysihtml5.dom.hasElementWithTagName(doc, tagName) &&
-          !wysihtml5.dom.hasElementWithTagName(doc, aliasTagName)) {
+      if (!textarea_editor.dom.hasElementWithTagName(doc, tagName) &&
+          !textarea_editor.dom.hasElementWithTagName(doc, aliasTagName)) {
         return false;
       }
 
        // Check whether the document contains a node with the desired className
-      if (className && !wysihtml5.dom.hasElementWithClassName(doc, className)) {
+      if (className && !textarea_editor.dom.hasElementWithClassName(doc, className)) {
          return false;
       }
 
@@ -7343,10 +7328,10 @@ wysihtml5.Commands = Base.extend(
       return undef;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var undef;
   
-  wysihtml5.commands.insertHTML = {
+  textarea_editor.commands.insertHTML = {
     exec: function(composer, command, html) {
       if (composer.commands.support(command)) {
         composer.doc.execCommand(command, false, html);
@@ -7363,19 +7348,19 @@ wysihtml5.Commands = Base.extend(
       return undef;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var NODE_NAME = "IMG";
   
-  wysihtml5.commands.insertImage = {
+  textarea_editor.commands.insertImage = {
     /**
      * Inserts an <img>
      * If selection is already an image link, it removes it
      * 
      * @example
      *    // either ...
-     *    wysihtml5.commands.insertImage.exec(composer, "insertImage", "http://www.google.de/logo.jpg");
+     *    textarea_editor.commands.insertImage.exec(composer, "insertImage", "http://www.google.de/logo.jpg");
      *    // ... or ...
-     *    wysihtml5.commands.insertImage.exec(composer, "insertImage", { src: "http://www.google.de/logo.jpg", title: "foo" });
+     *    textarea_editor.commands.insertImage.exec(composer, "insertImage", { src: "http://www.google.de/logo.jpg", title: "foo" });
      */
     exec: function(composer, command, value) {
       value = typeof(value) === "object" ? value : { src: value };
@@ -7393,14 +7378,14 @@ wysihtml5.Commands = Base.extend(
         parent.removeChild(image);
 
         // and it's parent <a> too if it hasn't got any other relevant child nodes
-        wysihtml5.dom.removeEmptyTextNodes(parent);
+        textarea_editor.dom.removeEmptyTextNodes(parent);
         if (parent.nodeName === "A" && !parent.firstChild) {
           composer.selection.setAfter(parent);
           parent.parentNode.removeChild(parent);
         }
 
         // firefox and ie sometimes don't remove the image handles, even though the image got removed
-        wysihtml5.quirks.redraw(composer.element);
+        textarea_editor.quirks.redraw(composer.element);
         return;
       }
 
@@ -7411,8 +7396,8 @@ wysihtml5.Commands = Base.extend(
       }
 
       composer.selection.insertNode(image);
-      if (wysihtml5.browser.hasProblemsSettingCaretAfterImg()) {
-        textNode = doc.createTextNode(wysihtml5.INVISIBLE_SPACE);
+      if (textarea_editor.browser.hasProblemsSettingCaretAfterImg()) {
+        textNode = doc.createTextNode(textarea_editor.INVISIBLE_SPACE);
         composer.selection.insertNode(textNode);
         composer.selection.setAfter(textNode);
       } else {
@@ -7426,7 +7411,7 @@ wysihtml5.Commands = Base.extend(
           text,
           imagesInSelection;
 
-      if (!wysihtml5.dom.hasElementWithTagName(doc, NODE_NAME)) {
+      if (!textarea_editor.dom.hasElementWithTagName(doc, NODE_NAME)) {
         return false;
       }
 
@@ -7440,17 +7425,17 @@ wysihtml5.Commands = Base.extend(
         return selectedNode;
       }
 
-      if (selectedNode.nodeType !== wysihtml5.ELEMENT_NODE) {
+      if (selectedNode.nodeType !== textarea_editor.ELEMENT_NODE) {
         return false;
       }
 
       text = composer.selection.getText();
-      text = wysihtml5.lang.string(text).trim();
+      text = textarea_editor.lang.string(text).trim();
       if (text) {
         return false;
       }
 
-      imagesInSelection = composer.selection.getNodes(wysihtml5.ELEMENT_NODE, function(node) {
+      imagesInSelection = composer.selection.getNodes(textarea_editor.ELEMENT_NODE, function(node) {
         return node.nodeName === "IMG";
       });
 
@@ -7466,15 +7451,15 @@ wysihtml5.Commands = Base.extend(
       return image && image.src;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var undef,
-      LINE_BREAK = "<br>" + (wysihtml5.browser.needsSpaceAfterLineBreak() ? " " : "");
+      LINE_BREAK = "<br>" + (textarea_editor.browser.needsSpaceAfterLineBreak() ? " " : "");
   
-  wysihtml5.commands.insertLineBreak = {
+  textarea_editor.commands.insertLineBreak = {
     exec: function(composer, command) {
       if (composer.commands.support(command)) {
         composer.doc.execCommand(command, false, null);
-        if (!wysihtml5.browser.autoScrollsToCaret()) {
+        if (!textarea_editor.browser.autoScrollsToCaret()) {
           composer.selection.scrollIntoView();
         }
       } else {
@@ -7490,16 +7475,16 @@ wysihtml5.Commands = Base.extend(
       return undef;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var undef;
   
-  wysihtml5.commands.insertOrderedList = {
+  textarea_editor.commands.insertOrderedList = {
     exec: function(composer, command) {
       var doc           = composer.doc,
           selectedNode  = composer.selection.getSelectedNode(),
-          list          = wysihtml5.dom.getParentElement(selectedNode, { nodeName: "OL" }),
-          otherList     = wysihtml5.dom.getParentElement(selectedNode, { nodeName: "UL" }),
-          tempClassName =  "_wysihtml5-temp-" + new Date().getTime(),
+          list          = textarea_editor.dom.getParentElement(selectedNode, { nodeName: "OL" }),
+          otherList     = textarea_editor.dom.getParentElement(selectedNode, { nodeName: "UL" }),
+          tempClassName =  "_textarea_editor-temp-" + new Date().getTime(),
           isEmpty,
           tempElement;
       
@@ -7514,7 +7499,7 @@ wysihtml5.Commands = Base.extend(
         // becomes:
         // foo<br>bar<br>
         composer.selection.executeAndRestoreSimple(function() {
-          wysihtml5.dom.resolveList(list);
+          textarea_editor.dom.resolveList(list);
         });
       } else if (otherList) {
         // Turn an unordered list into an ordered list
@@ -7522,15 +7507,15 @@ wysihtml5.Commands = Base.extend(
         // becomes:
         // <ol><li>foo</li><li>bar</li></ol>
         composer.selection.executeAndRestoreSimple(function() {
-          wysihtml5.dom.renameElement(otherList, "ol");
+          textarea_editor.dom.renameElement(otherList, "ol");
         });
       } else {
         // Create list
         composer.commands.exec("formatBlock", "div", tempClassName);
         tempElement = doc.querySelector("." + tempClassName);
-        isEmpty = tempElement.innerHTML === "" || tempElement.innerHTML === wysihtml5.INVISIBLE_SPACE;
+        isEmpty = tempElement.innerHTML === "" || tempElement.innerHTML === textarea_editor.INVISIBLE_SPACE;
         composer.selection.executeAndRestoreSimple(function() {
-          list = wysihtml5.dom.convertToList(tempElement, "ol");
+          list = textarea_editor.dom.convertToList(tempElement, "ol");
         });
         if (isEmpty) {
           composer.selection.selectNode(list.querySelector("li"));
@@ -7540,23 +7525,23 @@ wysihtml5.Commands = Base.extend(
     
     state: function(composer) {
       var selectedNode = composer.selection.getSelectedNode();
-      return wysihtml5.dom.getParentElement(selectedNode, { nodeName: "OL" });
+      return textarea_editor.dom.getParentElement(selectedNode, { nodeName: "OL" });
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var undef;
   
-  wysihtml5.commands.insertUnorderedList = {
+  textarea_editor.commands.insertUnorderedList = {
     exec: function(composer, command) {
       var doc           = composer.doc,
           selectedNode  = composer.selection.getSelectedNode(),
-          list          = wysihtml5.dom.getParentElement(selectedNode, { nodeName: "UL" }),
-          otherList     = wysihtml5.dom.getParentElement(selectedNode, { nodeName: "OL" }),
-          tempClassName =  "_wysihtml5-temp-" + new Date().getTime(),
+          list          = textarea_editor.dom.getParentElement(selectedNode, { nodeName: "UL" }),
+          otherList     = textarea_editor.dom.getParentElement(selectedNode, { nodeName: "OL" }),
+          tempClassName =  "_textarea_editor-temp-" + new Date().getTime(),
           isEmpty,
           tempElement;
       
@@ -7571,7 +7556,7 @@ wysihtml5.Commands = Base.extend(
         // becomes:
         // foo<br>bar<br>
         composer.selection.executeAndRestoreSimple(function() {
-          wysihtml5.dom.resolveList(list);
+          textarea_editor.dom.resolveList(list);
         });
       } else if (otherList) {
         // Turn an ordered list into an unordered list
@@ -7579,15 +7564,15 @@ wysihtml5.Commands = Base.extend(
         // becomes:
         // <ul><li>foo</li><li>bar</li></ul>
         composer.selection.executeAndRestoreSimple(function() {
-          wysihtml5.dom.renameElement(otherList, "ul");
+          textarea_editor.dom.renameElement(otherList, "ul");
         });
       } else {
         // Create list
         composer.commands.exec("formatBlock", "div", tempClassName);
         tempElement = doc.querySelector("." + tempClassName);
-        isEmpty = tempElement.innerHTML === "" || tempElement.innerHTML === wysihtml5.INVISIBLE_SPACE;
+        isEmpty = tempElement.innerHTML === "" || tempElement.innerHTML === textarea_editor.INVISIBLE_SPACE;
         composer.selection.executeAndRestoreSimple(function() {
-          list = wysihtml5.dom.convertToList(tempElement, "ul");
+          list = textarea_editor.dom.convertToList(tempElement, "ul");
         });
         if (isEmpty) {
           composer.selection.selectNode(list.querySelector("li"));
@@ -7597,19 +7582,19 @@ wysihtml5.Commands = Base.extend(
     
     state: function(composer) {
       var selectedNode = composer.selection.getSelectedNode();
-      return wysihtml5.dom.getParentElement(selectedNode, { nodeName: "UL" });
+      return textarea_editor.dom.getParentElement(selectedNode, { nodeName: "UL" });
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var undef;
   
-  wysihtml5.commands.italic = {
+  textarea_editor.commands.italic = {
     exec: function(composer, command) {
-      return wysihtml5.commands.formatInline.exec(composer, command, "i");
+      return textarea_editor.commands.formatInline.exec(composer, command, "i");
     },
 
     state: function(composer, command, color) {
@@ -7618,105 +7603,105 @@ wysihtml5.Commands = Base.extend(
       // chrome:  <i>, <em>, <blockquote>, ...
       // ie:      <i>, <em>
       // opera:   only <i>
-      return wysihtml5.commands.formatInline.state(composer, command, "i");
+      return textarea_editor.commands.formatInline.state(composer, command, "i");
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var undef,
       CLASS_NAME  = "wysiwyg-text-align-center",
       REG_EXP     = /wysiwyg-text-align-[a-z]+/g;
   
-  wysihtml5.commands.justifyCenter = {
+  textarea_editor.commands.justifyCenter = {
     exec: function(composer, command) {
-      return wysihtml5.commands.formatBlock.exec(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
+      return textarea_editor.commands.formatBlock.exec(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
     },
 
     state: function(composer, command) {
-      return wysihtml5.commands.formatBlock.state(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
+      return textarea_editor.commands.formatBlock.state(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var undef,
       CLASS_NAME  = "wysiwyg-text-align-left",
       REG_EXP     = /wysiwyg-text-align-[a-z]+/g;
   
-  wysihtml5.commands.justifyLeft = {
+  textarea_editor.commands.justifyLeft = {
     exec: function(composer, command) {
-      return wysihtml5.commands.formatBlock.exec(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
+      return textarea_editor.commands.formatBlock.exec(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
     },
 
     state: function(composer, command) {
-      return wysihtml5.commands.formatBlock.state(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
+      return textarea_editor.commands.formatBlock.state(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var undef,
       CLASS_NAME  = "wysiwyg-text-align-right",
       REG_EXP     = /wysiwyg-text-align-[a-z]+/g;
   
-  wysihtml5.commands.justifyRight = {
+  textarea_editor.commands.justifyRight = {
     exec: function(composer, command) {
-      return wysihtml5.commands.formatBlock.exec(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
+      return textarea_editor.commands.formatBlock.exec(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
     },
 
     state: function(composer, command) {
-      return wysihtml5.commands.formatBlock.state(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
+      return textarea_editor.commands.formatBlock.state(composer, "formatBlock", null, CLASS_NAME, REG_EXP);
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);(function(wysihtml5) {
+})(textarea_editor);(function(textarea_editor) {
   var undef;
-  wysihtml5.commands.underline = {
+  textarea_editor.commands.underline = {
     exec: function(composer, command) {
-      return wysihtml5.commands.formatInline.exec(composer, command, "u");
+      return textarea_editor.commands.formatInline.exec(composer, command, "u");
     },
 
     state: function(composer, command) {
-      return wysihtml5.commands.formatInline.state(composer, command, "u");
+      return textarea_editor.commands.formatInline.state(composer, command, "u");
     },
 
     value: function() {
       return undef;
     }
   };
-})(wysihtml5);/**
- * Undo Manager for wysihtml5
+})(textarea_editor);/**
+ * Undo Manager for textarea_editor
  * slightly inspired by http://rniwa.com/editing/undomanager.html#the-undomanager-interface
  */
-(function(wysihtml5) {
+(function(textarea_editor) {
   var Z_KEY               = 90,
       Y_KEY               = 89,
       BACKSPACE_KEY       = 8,
       DELETE_KEY          = 46,
       MAX_HISTORY_ENTRIES = 40,
-      UNDO_HTML           = '<span id="_wysihtml5-undo" class="_wysihtml5-temp">' + wysihtml5.INVISIBLE_SPACE + '</span>',
-      REDO_HTML           = '<span id="_wysihtml5-redo" class="_wysihtml5-temp">' + wysihtml5.INVISIBLE_SPACE + '</span>',
-      dom                 = wysihtml5.dom;
+      UNDO_HTML           = '<span id="_textarea_editor-undo" class="_textarea_editor-temp">' + textarea_editor.INVISIBLE_SPACE + '</span>',
+      REDO_HTML           = '<span id="_textarea_editor-redo" class="_textarea_editor-temp">' + textarea_editor.INVISIBLE_SPACE + '</span>',
+      dom                 = textarea_editor.dom;
   
   function cleanTempElements(doc) {
     var tempElement;
-    while (tempElement = doc.querySelector("._wysihtml5-temp")) {
+    while (tempElement = doc.querySelector("._textarea_editor-temp")) {
       tempElement.parentNode.removeChild(tempElement);
     }
   }
   
-  wysihtml5.UndoManager = wysihtml5.lang.Dispatcher.extend(
-    /** @scope wysihtml5.UndoManager.prototype */ {
+  textarea_editor.UndoManager = textarea_editor.lang.Dispatcher.extend(
+    /** @scope textarea_editor.UndoManager.prototype */ {
     constructor: function(editor) {
       this.editor = editor;
       this.composer = editor.composer;
@@ -7775,7 +7760,7 @@ wysihtml5.Commands = Base.extend(
       // The last element being inserted will be immediately be removed again by a exexCommand("undo")
       //  => When the second element appears in the dom tree then we know the user clicked "redo" in the context menu
       //  => When the first element disappears from the dom tree then we know the user clicked "undo" in the context menu
-      if (wysihtml5.browser.hasUndoInContextMenu()) {
+      if (textarea_editor.browser.hasUndoInContextMenu()) {
         var interval, observed, cleanUp = function() {
           cleanTempElements(doc);
           clearInterval(interval);
@@ -7796,10 +7781,10 @@ wysihtml5.Commands = Base.extend(
           });
 
           interval = setInterval(function() {
-            if (doc.getElementById("_wysihtml5-redo")) {
+            if (doc.getElementById("_textarea_editor-redo")) {
               cleanUp();
               that.redo();
-            } else if (!doc.getElementById("_wysihtml5-undo")) {
+            } else if (!doc.getElementById("_textarea_editor-undo")) {
               cleanUp();
               that.undo();
             }
@@ -7866,12 +7851,12 @@ wysihtml5.Commands = Base.extend(
       this.editor.focus(true);
     }
   });
-})(wysihtml5);
+})(textarea_editor);
 /**
  * TODO: the following methods still need unit test coverage
  */
-wysihtml5.views.View = Base.extend(
-  /** @scope wysihtml5.views.View.prototype */ {
+textarea_editor.views.View = Base.extend(
+  /** @scope textarea_editor.views.View.prototype */ {
   constructor: function(parent, textareaElement, config) {
     this.parent   = parent;
     this.element  = textareaElement;
@@ -7919,12 +7904,12 @@ wysihtml5.views.View = Base.extend(
   enable: function() {
     this.element.removeAttribute("disabled");
   }
-});(function(wysihtml5) {
-  var dom       = wysihtml5.dom,
-      browser   = wysihtml5.browser;
+});(function(textarea_editor) {
+  var dom       = textarea_editor.dom,
+      browser   = textarea_editor.browser;
   
-  wysihtml5.views.Composer = wysihtml5.views.View.extend(
-    /** @scope wysihtml5.views.Composer.prototype */ {
+  textarea_editor.views.Composer = textarea_editor.views.View.extend(
+    /** @scope textarea_editor.views.Composer.prototype */ {
     name: "composer",
 
     // Needed for firefox in order to display a proper caret in an empty contentEditable
@@ -7941,7 +7926,7 @@ wysihtml5.views.View = Base.extend(
     },
 
     getValue: function(parse) {
-      var value = this.isEmpty() ? "" : wysihtml5.quirks.getCorrectInnerHTML(this.element);
+      var value = this.isEmpty() ? "" : textarea_editor.quirks.getCorrectInnerHTML(this.element);
       
       if (parse) {
         value = this.parent.parse(value);
@@ -7950,7 +7935,7 @@ wysihtml5.views.View = Base.extend(
       // Replace all "zero width no breaking space" chars
       // which are used as hacks to enable some functionalities
       // Also remove all CARET hacks that somehow got left
-      value = wysihtml5.lang.string(value).replace(wysihtml5.INVISIBLE_SPACE).by("");
+      value = textarea_editor.lang.string(value).replace(textarea_editor.INVISIBLE_SPACE).by("");
 
       return value;
     },
@@ -7992,7 +7977,7 @@ wysihtml5.views.View = Base.extend(
       // IE 8 fires the focus event after .focus()
       // This is needed by our simulate_placeholder.js to work
       // therefore we clear it ourselves this time
-      if (wysihtml5.browser.doesAsyncFocus() && this.hasPlaceholderSet()) {
+      if (textarea_editor.browser.doesAsyncFocus() && this.hasPlaceholderSet()) {
         this.clear();
       }
       
@@ -8038,10 +8023,10 @@ wysihtml5.views.View = Base.extend(
       // Create hidden field which tells the server after submit, that the user used an wysiwyg editor
       var hiddenField = document.createElement("input");
       hiddenField.type   = "hidden";
-      hiddenField.name   = "_wysihtml5_mode";
+      hiddenField.name   = "_textarea_editor_mode";
       hiddenField.value  = 1;
 
-      // Store reference to current wysihtml5 instance on the textarea element
+      // Store reference to current textarea_editor instance on the textarea element
       var textareaElement = this.textarea.element;
       dom.insert(this.iframe).after(textareaElement);
       dom.insert(hiddenField).after(textareaElement);
@@ -8057,10 +8042,10 @@ wysihtml5.views.View = Base.extend(
       this.enable();
       
       // Make sure our selection handler is ready
-      this.selection = new wysihtml5.Selection(this.parent);
+      this.selection = new textarea_editor.Selection(this.parent);
       
       // Make sure commands dispatcher is ready
-      this.commands  = new wysihtml5.Commands(this.parent);
+      this.commands  = new textarea_editor.Commands(this.parent);
 
       dom.copyAttributes([
         "className", "spellcheck", "title", "lang", "dir", "accessKey"
@@ -8101,15 +8086,15 @@ wysihtml5.views.View = Base.extend(
         setTimeout(function() { that.focus(); }, 100);
       }
 
-      wysihtml5.quirks.insertLineBreakOnReturn(this);
+      textarea_editor.quirks.insertLineBreakOnReturn(this);
 
       // IE sometimes leaves a single paragraph, which can't be removed by the user
       if (!browser.clearsContentEditableCorrectly()) {
-        wysihtml5.quirks.ensureProperClearing(this);
+        textarea_editor.quirks.ensureProperClearing(this);
       }
 
       if (!browser.clearsListsInContentEditableCorrectly()) {
-        wysihtml5.quirks.ensureProperClearingOfLists(this);
+        textarea_editor.quirks.ensureProperClearingOfLists(this);
       }
 
       // Set up a sync that makes sure that textarea and editor have the same content
@@ -8155,7 +8140,7 @@ wysihtml5.views.View = Base.extend(
           // The autoLink helper method reveals a reg exp to detect correct urls
           urlRegExp       = dom.autoLink.URL_REG_EXP,
           getTextContent  = function(element) {
-            var textContent = wysihtml5.lang.string(dom.getTextContent(element)).trim();
+            var textContent = textarea_editor.lang.string(dom.getTextContent(element)).trim();
             if (textContent.substr(0, 4) === "www.") {
               textContent = "http://" + textContent;
             }
@@ -8217,7 +8202,7 @@ wysihtml5.views.View = Base.extend(
               }
             }
             // After resizing IE sometimes forgets to remove the old resize handles
-            wysihtml5.quirks.redraw(element);
+            textarea_editor.quirks.redraw(element);
           });
         }
       } else {
@@ -8228,11 +8213,11 @@ wysihtml5.views.View = Base.extend(
     },
     
     _initUndoManager: function() {
-      new wysihtml5.UndoManager(this.parent);
+      new textarea_editor.UndoManager(this.parent);
     }
   });
-})(wysihtml5);(function(wysihtml5) {
-  var dom             = wysihtml5.dom,
+})(textarea_editor);(function(textarea_editor) {
+  var dom             = textarea_editor.dom,
       doc             = document,
       win             = window,
       HOST_TEMPLATE   = doc.createElement("div"),
@@ -8281,8 +8266,8 @@ wysihtml5.views.View = Base.extend(
       ADDITIONAL_CSS_RULES = [
         "html             { height: 100%; }",
         "body             { min-height: 100%; padding: 0; margin: 0; margin-top: -1px; padding-top: 1px; }",
-        "._wysihtml5-temp { display: none; }",
-        wysihtml5.browser.isGecko ?
+        "._textarea_editor-temp { display: none; }",
+        textarea_editor.browser.isGecko ?
           "body.placeholder { color: graytext !important; }" : 
           "body.placeholder { color: #a9a9a9 !important; }",
         "body[disabled]   { background-color: #eee !important; color: #999 !important; cursor: default !important; }",
@@ -8301,7 +8286,7 @@ wysihtml5.views.View = Base.extend(
   var focusWithoutScrolling = function(element) {
     if (element.setActive) {
       // Following line could cause a js error when the textarea is invisible
-      // See https://github.com/xing/wysihtml5/issues/9
+      // See https://github.com/xing/textarea_editor/issues/9
       try { element.setActive(); } catch(e) {}
     } else {
       var elementStyle = element.style,
@@ -8336,7 +8321,7 @@ wysihtml5.views.View = Base.extend(
   };
   
   
-  wysihtml5.views.Composer.prototype.style = function() {
+  textarea_editor.views.Composer.prototype.style = function() {
     var that                  = this,
         originalActiveElement = doc.querySelector(":focus"),
         textareaElement       = this.textarea.element,
@@ -8371,7 +8356,7 @@ wysihtml5.views.View = Base.extend(
     // Make sure that we don't change the display style of the iframe when copying styles oblur/onfocus
     // this is needed for when the change_view event is fired where the iframe is hidden and then
     // the blur event fires and re-displays it
-    var boxFormattingStyles = wysihtml5.lang.array(BOX_FORMATTING).without(["display"]);
+    var boxFormattingStyles = textarea_editor.lang.array(BOX_FORMATTING).without(["display"]);
   
     // --------- restore focus ---------
     if (originalActiveElement) {
@@ -8387,7 +8372,7 @@ wysihtml5.views.View = Base.extend(
   
     // When copying styles, we only get the computed style which is never returned in percent unit
     // Therefore we've to recalculate style onresize
-    if (!wysihtml5.browser.hasCurrentStyleProperty()) {
+    if (!textarea_editor.browser.hasCurrentStyleProperty()) {
       var winObserver = dom.observe(win, "resize", function() {
         // Remove event listener if composer doesn't exist anymore
         if (!dom.contains(document.documentElement, that.iframe)) {
@@ -8421,7 +8406,7 @@ wysihtml5.views.View = Base.extend(
   
     return this;
   };
-})(wysihtml5);/**
+})(textarea_editor);/**
  * Taking care of events
  *  - Simulating 'change' event on contentEditable element
  *  - Handling drag & drop logic
@@ -8429,9 +8414,9 @@ wysihtml5.views.View = Base.extend(
  *  - Dispatch proprietary newword:composer event
  *  - Keyboard shortcuts
  */
-(function(wysihtml5) {
-  var dom       = wysihtml5.dom,
-      browser   = wysihtml5.browser,
+(function(textarea_editor) {
+  var dom       = textarea_editor.dom,
+      browser   = textarea_editor.browser,
       /**
        * Map keyCodes to query commands
        */
@@ -8441,7 +8426,7 @@ wysihtml5.views.View = Base.extend(
         "85": "underline" // U
       };
   
-  wysihtml5.views.Composer.prototype.observe = function() {
+  textarea_editor.views.Composer.prototype.observe = function() {
     var that                = this,
         state               = this.getValue(),
         iframe              = this.sandbox.getIframe(),
@@ -8481,7 +8466,7 @@ wysihtml5.views.View = Base.extend(
       that.parent.fire("blur").fire("blur:composer");
     });
     
-    if (wysihtml5.browser.isIos()) {
+    if (textarea_editor.browser.isIos()) {
       // When on iPad/iPhone/IPod after clicking outside of editor, the editor loses focus
       // but the UI still acts as if the editor has focus (blinking caret and onscreen keyboard visible)
       // We prevent that by focusing a temporary input element which immediately loses focus
@@ -8535,7 +8520,7 @@ wysihtml5.views.View = Base.extend(
     // --------- neword event ---------
     dom.observe(element, "keyup", function(event) {
       var keyCode = event.keyCode;
-      if (keyCode === wysihtml5.SPACE_KEY || keyCode === wysihtml5.ENTER_KEY) {
+      if (keyCode === textarea_editor.SPACE_KEY || keyCode === textarea_editor.ENTER_KEY) {
         that.parent.fire("newword:composer");
       }
     });
@@ -8570,7 +8555,7 @@ wysihtml5.views.View = Base.extend(
       var target  = that.selection.getSelectedNode(true),
           keyCode = event.keyCode,
           parent;
-      if (target && target.nodeName === "IMG" && (keyCode === wysihtml5.BACKSPACE_KEY || keyCode === wysihtml5.DELETE_KEY)) { // 8 => backspace, 46 => delete
+      if (target && target.nodeName === "IMG" && (keyCode === textarea_editor.BACKSPACE_KEY || keyCode === textarea_editor.DELETE_KEY)) { // 8 => backspace, 46 => delete
         parent = target.parentNode;
         // delete the <img>
         parent.removeChild(target);
@@ -8579,7 +8564,7 @@ wysihtml5.views.View = Base.extend(
           parent.parentNode.removeChild(parent);
         }
 
-        setTimeout(function() { wysihtml5.quirks.redraw(element); }, 0);
+        setTimeout(function() { textarea_editor.quirks.redraw(element); }, 0);
         event.preventDefault();
       }
     });
@@ -8604,14 +8589,14 @@ wysihtml5.views.View = Base.extend(
       }
     });
   };
-})(wysihtml5);/**
+})(textarea_editor);/**
  * Class that takes care that the value of the composer and the textarea is always in sync
  */
-(function(wysihtml5) {
+(function(textarea_editor) {
   var INTERVAL = 400;
   
-  wysihtml5.views.Synchronizer = Base.extend(
-    /** @scope wysihtml5.views.Synchronizer.prototype */ {
+  textarea_editor.views.Synchronizer = Base.extend(
+    /** @scope textarea_editor.views.Synchronizer.prototype */ {
 
     constructor: function(editor, textarea, composer) {
       this.editor   = editor;
@@ -8627,7 +8612,7 @@ wysihtml5.views.View = Base.extend(
      * @param {Boolean} shouldParseHtml Whether the html should be sanitized before inserting it into the textarea
      */
     fromComposerToTextarea: function(shouldParseHtml) {
-      this.textarea.setValue(wysihtml5.lang.string(this.composer.getValue()).trim(), shouldParseHtml);
+      this.textarea.setValue(textarea_editor.lang.string(this.composer.getValue()).trim(), shouldParseHtml);
     },
 
     /**
@@ -8679,10 +8664,10 @@ wysihtml5.views.View = Base.extend(
       if (form) {
         // If the textarea is in a form make sure that after onreset and onsubmit the composer
         // has the correct state
-        wysihtml5.dom.observe(form, "submit", function() {
+        textarea_editor.dom.observe(form, "submit", function() {
           that.sync(true);
         });
-        wysihtml5.dom.observe(form, "reset", function() {
+        textarea_editor.dom.observe(form, "reset", function() {
           setTimeout(function() { that.fromTextareaToComposer(); }, 0);
         });
       }
@@ -8700,9 +8685,9 @@ wysihtml5.views.View = Base.extend(
       this.editor.observe("destroy:composer", stopInterval);
     }
   });
-})(wysihtml5);
-wysihtml5.views.Textarea = wysihtml5.views.View.extend(
-  /** @scope wysihtml5.views.Textarea.prototype */ {
+})(textarea_editor);
+textarea_editor.views.Textarea = textarea_editor.views.View.extend(
+  /** @scope textarea_editor.views.Textarea.prototype */ {
   name: "textarea",
   
   constructor: function(parent, textareaElement, config) {
@@ -8731,7 +8716,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
   },
   
   hasPlaceholderSet: function() {
-    var supportsPlaceholder = wysihtml5.browser.supportsPlaceholderAttributeOn(this.element),
+    var supportsPlaceholder = textarea_editor.browser.supportsPlaceholderAttributeOn(this.element),
         placeholderText     = this.element.getAttribute("placeholder") || null,
         value               = this.element.value,
         isEmpty             = !value;
@@ -8739,7 +8724,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
   },
   
   isEmpty: function() {
-    return !wysihtml5.lang.string(this.element.value).trim() || this.hasPlaceholderSet();
+    return !textarea_editor.lang.string(this.element.value).trim() || this.hasPlaceholderSet();
   },
   
   _observe: function() {
@@ -8753,15 +8738,15 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
          * Calling focus() or blur() on an element doesn't synchronously trigger the attached focus/blur events
          * This is the case for focusin and focusout, so let's use them whenever possible, kkthxbai
          */
-        events = wysihtml5.browser.supportsEvent("focusin") ? ["focusin", "focusout", "change"] : ["focus", "blur", "change"];
+        events = textarea_editor.browser.supportsEvent("focusin") ? ["focusin", "focusout", "change"] : ["focus", "blur", "change"];
     
     parent.observe("beforeload", function() {
-      wysihtml5.dom.observe(element, events, function(event) {
+      textarea_editor.dom.observe(element, events, function(event) {
         var eventName = eventMapping[event.type] || event.type;
         parent.fire(eventName).fire(eventName + ":textarea");
       });
       
-      wysihtml5.dom.observe(element, ["paste", "drop"], function() {
+      textarea_editor.dom.observe(element, ["paste", "drop"], function() {
         setTimeout(function() { parent.fire("paste").fire("paste:textarea"); }, 0);
       });
     });
@@ -8774,38 +8759,38 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
  *
  * @example
  *    <!-- Toolbar link -->
- *    <a data-wysihtml5-command="insertImage">insert an image</a>
+ *    <a textarea-command="insertImage">insert an image</a>
  *
  *    <!-- Dialog -->
- *    <div data-wysihtml5-dialog="insertImage" style="display: none;">
+ *    <div textarea-dialog="insertImage" style="display: none;">
  *      <label>
- *        URL: <input data-wysihtml5-dialog-field="src" value="http://">
+ *        URL: <input textarea-dialog-field="src" value="http://">
  *      </label>
  *      <label>
- *        Alternative text: <input data-wysihtml5-dialog-field="alt" value="">
+ *        Alternative text: <input textarea-dialog-field="alt" value="">
  *      </label>
  *    </div>
  *
  *    <script>
- *      var dialog = new wysihtml5.toolbar.Dialog(
- *        document.querySelector("[data-wysihtml5-command='insertImage']"),
- *        document.querySelector("[data-wysihtml5-dialog='insertImage']")
+ *      var dialog = new textarea_editor.toolbar.Dialog(
+ *        document.querySelector("[textarea-command='insertImage']"),
+ *        document.querySelector("[textarea-dialog='insertImage']")
  *      );
  *      dialog.observe("save", function(attributes) {
  *        // do something
  *      });
  *    </script>
  */
-(function(wysihtml5) {
-  var dom                     = wysihtml5.dom,
-      CLASS_NAME_OPENED       = "wysihtml5-command-dialog-opened",
+(function(textarea_editor) {
+  var dom                     = textarea_editor.dom,
+      CLASS_NAME_OPENED       = "textarea_editor-command-dialog-opened",
       SELECTOR_FORM_ELEMENTS  = "input, select, textarea",
-      SELECTOR_FIELDS         = "[data-wysihtml5-dialog-field]",
-      ATTRIBUTE_FIELDS        = "data-wysihtml5-dialog-field";
+      SELECTOR_FIELDS         = "[textarea-dialog-field]",
+      ATTRIBUTE_FIELDS        = "textarea-dialog-field";
       
   
-  wysihtml5.toolbar.Dialog = wysihtml5.lang.Dispatcher.extend(
-    /** @scope wysihtml5.toolbar.Dialog.prototype */ {
+  textarea_editor.toolbar.Dialog = textarea_editor.lang.Dispatcher.extend(
+    /** @scope textarea_editor.toolbar.Dialog.prototype */ {
     constructor: function(link, container) {
       this.link       = link;
       this.container  = container;
@@ -8837,17 +8822,17 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
 
       dom.observe(this.container, "keydown", function(event) {
         var keyCode = event.keyCode;
-        if (keyCode === wysihtml5.ENTER_KEY) {
+        if (keyCode === textarea_editor.ENTER_KEY) {
           callbackWrapper(event);
         }
-        if (keyCode === wysihtml5.ESCAPE_KEY) {
+        if (keyCode === textarea_editor.ESCAPE_KEY) {
           that.hide();
         }
       });
 
-      dom.delegate(this.container, "[data-wysihtml5-dialog-action=save]", "click", callbackWrapper);
+      dom.delegate(this.container, "[textarea-dialog-action=save]", "click", callbackWrapper);
 
-      dom.delegate(this.container, "[data-wysihtml5-dialog-action=cancel]", "click", function(event) {
+      dom.delegate(this.container, "[textarea-dialog-action=cancel]", "click", function(event) {
         that.fire("cancel");
         that.hide();
         event.preventDefault();
@@ -8888,12 +8873,12 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
      *    <a href="http://www.google.com" target="_blank">foo</a>
      *
      * and we have the following dialog:
-     *    <input type="text" data-wysihtml5-dialog-field="href" value="">
-     *    <input type="text" data-wysihtml5-dialog-field="target" value="">
+     *    <input type="text" textarea-dialog-field="href" value="">
+     *    <input type="text" textarea-dialog-field="target" value="">
      * 
      * after calling _interpolate() the dialog will look like this
-     *    <input type="text" data-wysihtml5-dialog-field="href" value="http://www.google.com">
-     *    <input type="text" data-wysihtml5-dialog-field="target" value="_blank">
+     *    <input type="text" textarea-dialog-field="href" value="http://www.google.com">
+     *    <input type="text" textarea-dialog-field="target" value="_blank">
      *
      * Basically it adopted the attribute values into the corresponding input fields
      *
@@ -8915,7 +8900,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         }
         
         // Don't update hidden fields
-        // See https://github.com/xing/wysihtml5/pull/14
+        // See https://github.com/xing/textarea_editor/pull/14
         if (avoidHiddenFields && field.type === "hidden") {
           continue;
         }
@@ -8959,7 +8944,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
       this.fire("hide");
     }
   });
-})(wysihtml5);
+})(textarea_editor);
 /**
  * Converts speech-to-text and inserts this into the editor
  * As of now (2011/03/25) this only is supported in Chrome >= 11
@@ -8973,8 +8958,8 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
  * "Accessing Google Speech API Chrome 11"
  * http://mikepultz.com/2011/03/accessing-google-speech-api-chrome-11/
  */
-(function(wysihtml5) {
-  var dom = wysihtml5.dom;
+(function(textarea_editor) {
+  var dom = textarea_editor.dom;
   
   var linkStyles = {
     position: "relative"
@@ -9008,16 +8993,16 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
     "speech":          ""
   };
   
-  wysihtml5.toolbar.Speech = function(parent, link) {
+  textarea_editor.toolbar.Speech = function(parent, link) {
     var input = document.createElement("input");
-    if (!wysihtml5.browser.supportsSpeechApiOn(input)) {
+    if (!textarea_editor.browser.supportsSpeechApiOn(input)) {
       link.style.display = "none";
       return;
     }
     
     var wrapper = document.createElement("div");
     
-    wysihtml5.lang.object(wrapperStyles).merge({
+    textarea_editor.lang.object(wrapperStyles).merge({
       width:  link.offsetWidth  + "px",
       height: link.offsetHeight + "px"
     });
@@ -9038,14 +9023,14 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
     });
     
     dom.observe(input, "click", function(event) {
-      if (dom.hasClass(link, "wysihtml5-command-disabled")) {
+      if (dom.hasClass(link, "textarea_editor-command-disabled")) {
         event.preventDefault();
       }
       
       event.stopPropagation();
     });
   };
-})(wysihtml5);/**
+})(textarea_editor);/**
  * Toolbar
  *
  * @param {Object} parent Reference to instance of Editor instance
@@ -9053,23 +9038,23 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
  *
  * @example
  *    <div id="toolbar">
- *      <a data-wysihtml5-command="createLink">insert link</a>
- *      <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">insert h1</a>
+ *      <a textarea-command="createLink">insert link</a>
+ *      <a textarea-command="formatBlock" textarea-command-value="h1">insert h1</a>
  *    </div>
  *
  *    <script>
- *      var toolbar = new wysihtml5.toolbar.Toolbar(editor, document.getElementById("toolbar"));
+ *      var toolbar = new textarea_editor.toolbar.Toolbar(editor, document.getElementById("toolbar"));
  *    </script>
  */
-(function(wysihtml5) {
-  var CLASS_NAME_COMMAND_DISABLED   = "wysihtml5-command-disabled",
-      CLASS_NAME_COMMANDS_DISABLED  = "wysihtml5-commands-disabled",
-      CLASS_NAME_COMMAND_ACTIVE     = "wysihtml5-command-active",
-      CLASS_NAME_ACTION_ACTIVE      = "wysihtml5-action-active",
-      dom                           = wysihtml5.dom;
+(function(textarea_editor) {
+  var CLASS_NAME_COMMAND_DISABLED   = "textarea_editor-command-disabled",
+      CLASS_NAME_COMMANDS_DISABLED  = "textarea_editor-commands-disabled",
+      CLASS_NAME_COMMAND_ACTIVE     = "textarea_editor-command-active",
+      CLASS_NAME_ACTION_ACTIVE      = "textarea_editor-action-active",
+      dom                           = textarea_editor.dom;
   
-  wysihtml5.toolbar.Toolbar = Base.extend(
-    /** @scope wysihtml5.toolbar.Toolbar.prototype */ {
+  textarea_editor.toolbar.Toolbar = Base.extend(
+    /** @scope textarea_editor.toolbar.Toolbar.prototype */ {
     constructor: function(editor, container) {
       this.editor     = editor;
       this.container  = typeof(container) === "string" ? document.getElementById(container) : container;
@@ -9081,16 +9066,16 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
       this._observe();
       this.show();
       
-      var speechInputLinks  = this.container.querySelectorAll("[data-wysihtml5-command=insertSpeech]"),
+      var speechInputLinks  = this.container.querySelectorAll("[textarea-command=insertSpeech]"),
           length            = speechInputLinks.length,
           i                 = 0;
       for (; i<length; i++) {
-        new wysihtml5.toolbar.Speech(this, speechInputLinks[i]);
+        new textarea_editor.toolbar.Speech(this, speechInputLinks[i]);
       }
     },
 
     _getLinks: function(type) {
-      var links   = this[type + "Links"] = wysihtml5.lang.array(this.container.querySelectorAll("[data-wysihtml5-" + type + "]")).get(),
+      var links   = this[type + "Links"] = textarea_editor.lang.array(this.container.querySelectorAll("[textarea-" + type + "]")).get(),
           length  = links.length,
           i       = 0,
           mapping = this[type + "Mapping"] = {},
@@ -9101,9 +9086,9 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
           dialog;
       for (; i<length; i++) {
         link    = links[i];
-        name    = link.getAttribute("data-wysihtml5-" + type);
-        value   = link.getAttribute("data-wysihtml5-" + type + "-value");
-        group   = this.container.querySelector("[data-wysihtml5-" + type + "-group='" + name + "']");
+        name    = link.getAttribute("textarea-" + type);
+        value   = link.getAttribute("textarea-" + type + "-value");
+        group   = this.container.querySelector("[textarea-" + type + "-group='" + name + "']");
         dialog  = this._getDialog(link, name);
         
         mapping[name + ":" + value] = {
@@ -9119,12 +9104,12 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
 
     _getDialog: function(link, command) {
       var that          = this,
-          dialogElement = this.container.querySelector("[data-wysihtml5-dialog='" + command + "']"),
+          dialogElement = this.container.querySelector("[textarea-dialog='" + command + "']"),
           dialog,
           caretBookmark;
       
       if (dialogElement) {
-        dialog = new wysihtml5.toolbar.Dialog(link, dialogElement);
+        dialog = new textarea_editor.toolbar.Dialog(link, dialogElement);
 
         dialog.observe("show", function() {
           caretBookmark = that.composer.selection.getBookmark();
@@ -9151,7 +9136,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
 
     /**
      * @example
-     *    var toolbar = new wysihtml5.Toolbar();
+     *    var toolbar = new textarea_editor.Toolbar();
      *    // Insert a <blockquote> element or wrap current selection in <blockquote>
      *    toolbar.execCommand("formatBlock", "blockquote");
      */
@@ -9209,18 +9194,18 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
       }
 
       // Needed for opera
-      dom.delegate(container, "[data-wysihtml5-command]", "mousedown", function(event) { event.preventDefault(); });
+      dom.delegate(container, "[textarea-command]", "mousedown", function(event) { event.preventDefault(); });
       
-      dom.delegate(container, "[data-wysihtml5-command]", "click", function(event) {
+      dom.delegate(container, "[textarea-command]", "click", function(event) {
         var link          = this,
-            command       = link.getAttribute("data-wysihtml5-command"),
-            commandValue  = link.getAttribute("data-wysihtml5-command-value");
+            command       = link.getAttribute("textarea-command"),
+            commandValue  = link.getAttribute("textarea-command-value");
         that.execCommand(command, commandValue);
         event.preventDefault();
       });
 
-      dom.delegate(container, "[data-wysihtml5-action]", "click", function(event) {
-        var action = this.getAttribute("data-wysihtml5-action");
+      dom.delegate(container, "[textarea-action]", "click", function(event) {
+        var action = this.getAttribute("textarea-action");
         that.execAction(action);
         event.preventDefault();
       });
@@ -9275,7 +9260,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
           }
         } else {
           state = this.composer.commands.state(command.name, command.value);
-          if (wysihtml5.lang.object(state).isArray()) {
+          if (textarea_editor.lang.object(state).isArray()) {
             // Grab first and only object/element in state array, otherwise convert state into boolean
             // to avoid showing a dialog for multiple selected elements which may have different attributes
             // eg. when two links with different href are selected, the state will be an array consisting of both link elements
@@ -9339,9 +9324,9 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
     }
   });
   
-})(wysihtml5);
+})(textarea_editor);
 /**
- * WYSIHTML5 Editor
+ * textarea_editor Editor
  *
  * @param {Element} textareaElement Reference to the textarea which should be turned into a rich text interface
  * @param {Object} [config] See defaultConfig object below for explanation of each individual config option
@@ -9369,7 +9354,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
  *    aftercommand:composer
  *    change_view
  */
-(function(wysihtml5) {
+(function(textarea_editor) {
   var undef;
   
   var defaultConfig = {
@@ -9385,41 +9370,41 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
     // See parser_rules/*.js for examples
     parserRules:          { tags: { br: {}, span: {}, div: {}, p: {} }, classes: {} },
     // Parser method to use when the user inserts content via copy & paste
-    parser:               wysihtml5.dom.parse,
+    parser:               textarea_editor.dom.parse,
     // Class name which should be set on the contentEditable element in the created sandbox iframe, can be styled via the 'stylesheets' option
-    composerClassName:    "wysihtml5-editor",
-    // Class name to add to the body when the wysihtml5 editor is supported
-    bodyClassName:        "wysihtml5-supported",
+    composerClassName:    "textarea_editor-editor",
+    // Class name to add to the body when the textarea_editor editor is supported
+    bodyClassName:        "textarea_editor-supported",
     // Array (or single string) of stylesheet urls to be loaded in the editor's iframe
     stylesheets:          [],
     // Placeholder text to use, defaults to the placeholder attribute on the textarea element
     placeholderText:      undef,
     // Whether the composer should allow the user to manually resize images, tables etc.
     allowObjectResizing:  true,
-    // Whether the rich text editor should be rendered on touch devices (wysihtml5 >= 0.3.0 comes with basic support for iOS 5)
+    // Whether the rich text editor should be rendered on touch devices (textarea_editor >= 0.3.0 comes with basic support for iOS 5)
     supportTouchDevices:  true
   };
   
-  wysihtml5.Editor = wysihtml5.lang.Dispatcher.extend(
-    /** @scope wysihtml5.Editor.prototype */ {
+  textarea_editor.Editor = textarea_editor.lang.Dispatcher.extend(
+    /** @scope textarea_editor.Editor.prototype */ {
     constructor: function(textareaElement, config) {
       this.textareaElement  = typeof(textareaElement) === "string" ? document.getElementById(textareaElement) : textareaElement;
-      this.config           = wysihtml5.lang.object({}).merge(defaultConfig).merge(config).get();
-      this.textarea         = new wysihtml5.views.Textarea(this, this.textareaElement, this.config);
+      this.config           = textarea_editor.lang.object({}).merge(defaultConfig).merge(config).get();
+      this.textarea         = new textarea_editor.views.Textarea(this, this.textareaElement, this.config);
       this.currentView      = this.textarea;
-      this._isCompatible    = wysihtml5.browser.supported();
+      this._isCompatible    = textarea_editor.browser.supported();
       
       // Sort out unsupported/unwanted browsers here
-      if (!this._isCompatible || (!this.config.supportTouchDevices && wysihtml5.browser.isTouchDevice())) {
+      if (!this._isCompatible || (!this.config.supportTouchDevices && textarea_editor.browser.isTouchDevice())) {
         var that = this;
         setTimeout(function() { that.fire("beforeload").fire("load"); }, 0);
         return;
       }
       
       // Add class name to body, to indicate that the editor is supported
-      wysihtml5.dom.addClass(document.body, this.config.bodyClassName);
+      textarea_editor.dom.addClass(document.body, this.config.bodyClassName);
       
-      this.composer = new wysihtml5.views.Composer(this, this.textareaElement, this.config);
+      this.composer = new textarea_editor.views.Composer(this, this.textareaElement, this.config);
       this.currentView = this.composer;
       
       if (typeof(this.config.parser) === "function") {
@@ -9427,14 +9412,14 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
       }
       
       this.observe("beforeload", function() {
-        this.synchronizer = new wysihtml5.views.Synchronizer(this, this.textarea, this.composer);
+        this.synchronizer = new textarea_editor.views.Synchronizer(this, this.textarea, this.composer);
         if (this.config.toolbar) {
-          this.toolbar = new wysihtml5.toolbar.Toolbar(this, this.config.toolbar);
+          this.toolbar = new textarea_editor.toolbar.Toolbar(this, this.config.toolbar);
         }
       });
       
       try {
-        console.log("Heya! This page is using wysihtml5 for rich text editing. Check out https://github.com/xing/wysihtml5");
+        console.log("Heya! This page is using textarea_editor for rich text editing. Check out https://github.com/xing/textarea_editor");
       } catch(e) {}
     },
     
@@ -9491,7 +9476,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
     parse: function(htmlOrElement) {
       var returnValue = this.config.parser(htmlOrElement, this.config.parserRules, this.composer.sandbox.getDocument(), true);
       if (typeof(htmlOrElement) === "object") {
-        wysihtml5.quirks.redraw(htmlOrElement);
+        textarea_editor.quirks.redraw(htmlOrElement);
       }
       return returnValue;
     },
@@ -9505,7 +9490,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
         var keepScrollPosition  = true,
             that                = this;
         that.composer.selection.executeAndRestore(function() {
-          wysihtml5.quirks.cleanPastedHTML(that.composer.element);
+          textarea_editor.quirks.cleanPastedHTML(that.composer.element);
           that.parse(that.composer.element);
         }, keepScrollPosition);
       });
@@ -9518,7 +9503,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
       });
     }
   });
-})(wysihtml5);
+})(textarea_editor);
 
 
 
@@ -9564,10 +9549,10 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
  *    ... becomes ...
  *    <div class="wysiwyg-text-align-center">hello</div>
  */
-var wysihtml5ParserRules = {
+var textarea_editorParserRules = {
     /**
      * CSS Class white-list
-     * Following css classes won't be removed when parsed by the wysihtml5 html parser
+     * Following css classes won't be removed when parsed by the textarea_editor html parser
      */
     "classes": {
         "wysiwyg-clear-both": 1,
@@ -9611,7 +9596,7 @@ var wysihtml5ParserRules = {
      * Following options are available:
      *
      *    - add_class:        converts and deletes the given HTML4 attribute (align, clear, ...) via the given method to a css class
-     *                        The following methods are implemented in wysihtml5.dom.parse:
+     *                        The following methods are implemented in textarea_editor.dom.parse:
      *                          - align_text:  converts align attribute values (right/left/center/justify) to their corresponding css class "wysiwyg-text-align-*")
                                   <p align="center">foo</p> ... becomes ... <p> class="wysiwyg-text-align-center">foo</p>
      *                          - clear_br:    converts clear attribute values left/right/all/both to their corresponding css class "wysiwyg-clear-*"
@@ -10093,9 +10078,9 @@ var wysihtml5ParserRules = {
 
 
 
-var editor = new wysihtml5.Editor("textarea", {
+var editor = new textarea_editor.Editor("textarea", {
     toolbar:      "toolbar",
-    parserRules:  wysihtml5ParserRules
+    parserRules:  textarea_editorParserRules
   });
   
   var log = document.getElementById("log");

@@ -1,4 +1,4 @@
-/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+/////// Responsive Mobile Menu Toggle ///////
 function responsiveMenu() {
     var x = document.getElementsByTagName('nav')[0];
     if (x.className === "") {
@@ -8,8 +8,7 @@ function responsiveMenu() {
     }
 }
 
-
-
+/////// Load Custom Typing Logo onload of site ///////
 document.addEventListener('DOMContentLoaded', function(){
       Typed.new('.element', {
         strings: ["Apple Developer", "Joe Blogs"],
