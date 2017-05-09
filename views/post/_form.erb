@@ -1,14 +1,57 @@
+<div class="container">
 <form method="POST" enctype="multipart/form-data">
 	<p>
-	<input type="text" name="title" placeholder="Title" class="form-control" 
+	<input type="text" name="title" placeholder="Title" class="full-width" 
 	value="<%= @post.title if defined?(@post.title) %>" pattern="[a-zA-Z0-9]+" required />
 	</p>
 	<p>
-	<input type="text" name="seo_slug" placeholder="Slug" class="form-control" 
+	<input id="editor" type="text" name="seo_slug" placeholder="Slug" class="full-width" 
 	value="<%= @post.seo_slug if defined?(@post.seo_slug) %>" pattern="[a-zA-Z0-9]+" required />
 	</p>
 	<p>
-	<textarea name="body" placeholder="Body" rows="15" class="form-control" required>
+	
+	<div id="toolbar" style="display: none;">
+    <a data-wysihtml5-command="bold" title="CTRL+B" class="button"><i class="fa fa-bold" aria-hidden="true"></i></a>
+    <a data-wysihtml5-command="italic" title="CTRL+I" class="button"><i class="fa fa-italic" aria-hidden="true"></i></a>
+    <a data-wysihtml5-command="createLink" class="button"><i class="fa fa-link" aria-hidden="true"></i></a>
+    <a data-wysihtml5-command="insertImage" class="button"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" class="button">h1</a>
+    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" class="button">h2</a>
+    <a data-wysihtml5-command="insertUnorderedList" class="button">insertUnorderedList</a>
+    <a data-wysihtml5-command="insertOrderedList" class="button">insertOrderedList</a>
+    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red" class="button" >red</a>
+    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green" class="button">green</a>
+    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue" class="button">blue</a>
+    <a data-wysihtml5-command="insertSpeech" class="button">speech</a>
+    <a data-wysihtml5-action="change_view" class="button">switch to html view</a>
+    
+    <div data-wysihtml5-dialog="createLink" style="display: none;">
+      <label>
+        Link:
+        <input data-wysihtml5-dialog-field="href" value="http://">
+      </label>
+      <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
+    </div>
+    
+    <div data-wysihtml5-dialog="insertImage" style="display: none;">
+      <label>
+        Image:
+        <input data-wysihtml5-dialog-field="src" value="http://">
+      </label>
+      <label>
+        Align:
+        <select data-wysihtml5-dialog-field="className">
+          <option value="">default</option>
+          <option value="wysiwyg-float-left">left</option>
+          <option value="wysiwyg-float-right">right</option>
+        </select>
+      </label>
+      <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
+    </div>
+    
+  </div>
+
+	<textarea id="textarea" name="body" class="full-width" rows="40" required>
 	<%= @post.body if defined?(@post.body) %></textarea>
 	</p>
 	<p>
@@ -18,3 +61,4 @@
 	<input type="submit" value="Save" class="btn btn-primary" />
 	</p>
 </form>
+</div>
