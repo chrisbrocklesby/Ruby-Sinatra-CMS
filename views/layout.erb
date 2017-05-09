@@ -1,105 +1,50 @@
 <!doctype html>
 <html lang="en">
-      <head>
-            <meta charset="utf-8">
-            <meta name="description" content="Description of page">
-            <meta name="author" content="Chris Brocklesby">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-            <base href="http://localhost:4567">
-            
-            <title><%= @pageTitle %></title>
-            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-            <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="./assets/css/normalize.css">
-            <link rel="stylesheet" href="./assets/css/style.css">
-            <script src="./assets/js/app.js"></script>
-            <script src="./assets/js/typed.js"></script>
-            <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-  <script>
-  tinymce.init({ 
-      selector:'textarea',
-      plugins: "image",
-      menubar: "insert",
-      toolbar: "image"
-      });
-</script>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Description of page">
+    <meta name="author" content="Chris Brocklesby">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <base href="http://localhost:4567">
+    
+    <title><%= @pageTitle %></title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/normalize.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/typed.js"></script>
+  </head>
+  <body>
 
-           
-
-
-
-      </head>
-      <body>
-
-      <nav id="nav">
-      <div class="container">
-            <a href="#">> <span class="element">Joe Blogs</span></a>
-<<<<<<< HEAD
-            <a href="javascript:void(0);" class="icon" onclick="responsiveMenu()">&#9776;</a><a href="./" class="logo"></a>
-=======
-            <a href="javascript:void(0);" class="icon" onclick="responsiveMenu()">&#9776;</a>
->>>>>>> b626ff6a0173c8bf96ac089b09918c8db0c09dce
-            <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
-            
-            
-
-            <a href="#" class="pull-right button button-primary " style="margin-top: 10px">Hire Me</a>
-            <a href="#contact" class="pull-right">Contact</a>
-            <a href="#about" class="pull-right">About</a>
-            <a href="./post/" class="pull-right">Blog</a>
-            <a href="./" class="pull-right">Portfolio</a>
-            <a href="./" class="pull-right">Home</a>
-            </div>
-      </nav>
-            <%= yield %>
-
-      <footer><center>
-<i class="fa fa-linkedin-square" aria-hidden="true"></i>
-<i class="fa fa-twitter" aria-hidden="true"></i>
-<i class="fa fa-github" aria-hidden="true"></i>
-<i class="fa fa-stack-overflow" aria-hidden="true"></i>
-<i class="fa fa-skype" aria-hidden="true"></i>
-<i class="fa fa-slack" aria-hidden="true"></i>
-<br/>
-            Joe Blogs, Copyright &copy; <%= Date.today.year %>
-            </center>
-      </footer>      
-       <script src="./assets/js/toolbar.js"></script>
-            <script src="./assets/js/rules.js"></script>
-<script>
-  var editor = new wysihtml5.Editor("textarea", {
-    toolbar:      "toolbar",
-    stylesheets:  "css/stylesheet.css",
-    parserRules:  wysihtml5ParserRules
-  });
+  <nav id="nav">
+  <div class="container">
+    <a href="./">> <span class="element">Joe Blogs</span></a>
+    <a href="javascript:void(0);" class="icon" onclick="responsiveMenu()">&#9776;</a>
+    
+    <a href="#" class="pull-right button button-primary " style="margin-top: 10px">Hire Me</a>
+    <a href="#contact" class="pull-right">Contact</a>
+    <a href="#about" class="pull-right">About</a>
+    <a href="./post" class="pull-right">Blog</a>
+    <a href="./" class="pull-right">Portfolio</a>
+    <a href="./" class="pull-right">Home</a>
+    </div>
+  </nav>
   
-  var log = document.getElementById("log");
-  
-  editor
-    .on("load", function() {
-      log.innerHTML += "<div>load</div>";
-    })
-    .on("focus", function() {
-      log.innerHTML += "<div>focus</div>";
-    })
-    .on("blur", function() {
-      log.innerHTML += "<div>blur</div>";
-    })
-    .on("change", function() {
-      log.innerHTML += "<div>change</div>";
-    })
-    .on("paste", function() {
-      log.innerHTML += "<div>paste</div>";
-    })
-    .on("newword:composer", function() {
-      log.innerHTML += "<div>newword:composer</div>";
-    })
-    .on("undo:composer", function() {
-      log.innerHTML += "<div>undo:composer</div>";
-    })
-    .on("redo:composer", function() {
-      log.innerHTML += "<div>redo:composer</div>";
-    });
-</script>
-      </body>
+  <%= yield %>
+
+  <footer>
+    <center>
+      <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+      <i class="fa fa-twitter" aria-hidden="true"></i>
+      <i class="fa fa-github" aria-hidden="true"></i>
+      <i class="fa fa-stack-overflow" aria-hidden="true"></i>
+      <i class="fa fa-skype" aria-hidden="true"></i>
+      <i class="fa fa-slack" aria-hidden="true"></i>
+      <br/>
+      Joe Blogs, Copyright &copy; <%= Date.today.year %>
+    </center>
+  </footer>      
+      
+  </body>
 <html>
