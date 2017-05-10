@@ -9588,6 +9588,7 @@ var textarea_editorParserRules = {
         "wysiwyg-text-align-center": 1,
         "wysiwyg-text-align-justify": 1,
         "wysiwyg-text-align-left": 1,
+        "pull-right": 1,
         "wysiwyg-text-align-right": 1
     },
     /**
@@ -10063,6 +10064,17 @@ var textarea_editorParserRules = {
         },
         "header": {
             "rename_tag": "div"
+        },
+        "iframe": {
+            "check_attributes": {
+                "src":"url"
+            },
+            "set_attributes": {
+                "width": "560",
+                "height": "315",
+                "frameborder": "0",
+                "allowfullscreen": ""
+            }
         }
     }
 };

@@ -1,56 +1,14 @@
-<!-- Include stylesheet -->
-<link href="https://cdn.quilljs.com/1.2.4/quill.snow.css" rel="stylesheet">
-
-<!-- Create the editor container -->
-<div id="editor">
-  <p>Hello World!</p>
-  <p>Some initial <strong>bold</strong> text</p>
-  <p><br></p>
-</div>
-
-<!-- Include the Quill library -->
-<script src="https://cdn.quilljs.com/1.2.4/quill.js"></script>
-
-<!-- Initialize Quill editor -->
-<script>
-var quill = new Quill('#editor', {
-  modules: {
-    toolbar: [
-      ['bold', 'italic'],
-      ['link', 'blockquote', 'code-block', 'image'],
-      [{ list: 'ordered' }, { list: 'bullet' }]
-    ]
-  },
-  placeholder: 'Compose an epic...',
-  theme: 'snow'
-});
-
-var form = document.querySelector('form');
-form.onsubmit = function() {
-  // Populate hidden form on submit
-  var about = document.querySelector('input[name=about]');
-  about.value = JSON.stringify(quill.getContents());
-  
-  console.log("Submitted", $(form).serialize(), $(form).serializeArray());
-  
-  // No back end to actually submit to!
-  alert('Open the console to see the submit data!')
-  return false;
-};
-
-
-</script>
-
-
-
-
 <form method="POST" enctype="multipart/form-data">
 	<p>
 	<input type="text" name="title" placeholder="Title" class="full-width" 
 	value="<%= @post.title if defined?(@post.title) %>" pattern="[a-zA-Z0-9 ]+" required />
 	</p>
+  <p>
+  <input type="text" name="description" placeholder="Description" class="full-width" 
+  value="<%= @post.description if defined?(@post.description) %>" pattern="[a-zA-Z0-9 ]+" required />
+  </p>
 	<p>
-	<input id="editor" type="text" name="slug" placeholder="Slug" class="full-width" 
+	<input type="text" name="slug" placeholder="Slug" class="full-width" 
 	value="<%= @post.slug if defined?(@post.slug) %>" pattern="[a-zA-Z0-9-]+" required />
 	</p>
 	<p>
@@ -112,6 +70,29 @@ form.onsubmit = function() {
 	<textarea id="textarea" name="body" class="full-width" rows="20" required>
 	<%= @post.body if defined?(@post.body) %></textarea>
   <script src="./assets/js/textarea_editor.js"></script>
+  </p>
+
+  <% if defined?(@post.created_date) %>
+  <p>
+  <input type="text" name="created_date" placeholder="Created Date" class="full-width" 
+  value="<%= @post.created_date if defined?(@post.created_date) %>" />
+  </p>
+  <% end %>
+
+  <p> 
+    <select name="published">
+      <% if defined?(@post.published) %>
+      <% if @post.published == true %>
+      <option value="1" selected>Published</option>
+      <% else %>
+      <option value="0" selected>Draft</option>
+      <% end %>  
+      </option>
+      <option disabled>──────</option>
+      <% end %>
+      <option value="1">Published</option>
+      <option value="0">Draft</option>
+    </select>
   </p>
 
 	<p>

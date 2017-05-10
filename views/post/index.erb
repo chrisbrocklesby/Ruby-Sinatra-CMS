@@ -1,11 +1,11 @@
 <div class="container">
-	
 	<% for Post in @posts %>
-		<h2><a href="./post/<%= Post.slug %>" class="btn btn-secondary btn-sm"><%= Post.title %></a></h2>
-		<p><%= Post.body.gsub(/<\/?[^>]*>/, "") %></p>
-	
-		<hr>
+		<article>
+			<h2><a href="./post/<%= Post.slug %>" class="btn btn-secondary btn-sm"><%= Post.title %></a></h2>
+			<time datetime="<%= Post.created_date %>"><%= Post.created_date.strftime('%B %d, %Y') %></time>
+			<p><%= Post.description %></p>
+		</article>
 	<% end %>  
 
-<%= will_paginate @posts %>
+	<%= will_paginate @posts %>
 </div>

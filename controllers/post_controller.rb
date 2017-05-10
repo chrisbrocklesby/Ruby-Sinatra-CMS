@@ -1,10 +1,17 @@
 ###### Post Index #######
 get "/post/?" do
   @pageTitle = "Post Index"
-  @posts = Post.paginate :page => params[:page], :per_page => 4, :order => [ :id.desc ]
+  @posts = Post.paginate :page => params[:page], :per_page => 5, :order => [ :id.desc ], :published => true
   erb :"post/index"
 end
 
+###### Post Admin Area #######
+get "/post/admin/?" do
+  protected
+  @pageTitle = "Post Admin"
+  @posts = Post.paginate :page => params[:page], :per_page => 10, :order => [ :id.desc ]
+  erb :"post/admin"
+end
 
 ###### New Post ########
 get "/post/new/?" do
@@ -17,8 +24,12 @@ post "/post/new/?" do
   protected
   data = Post.new
   data.title = params[:title]
+  data.description = params[:description]
   data.slug = params[:slug]
   data.body = params[:body]
+  data.published = params[:published]
+  data.created_date = Time.now
+  data.updated_date = Time.now
 
   if(data.save)
     redirect('/post')
@@ -39,9 +50,13 @@ end
 post "/post/edit/:id/?" do
   protected
   data = Post.get(params[:id]).update(
-    :title => params[:title], 
-    :slug => params[:slug], 
-    :body => params[:body]
+    :title => params[:title],
+    :description => params[:description], 
+    :slug => params[:slug],
+    :body => params[:body],
+    :published => params[:published],
+    :created_date => params[:created_date],
+    :updated_date => Time.now
   )
   if(data)
     redirect('/post')
@@ -53,7 +68,7 @@ end
 
 ###### View Post #######
 get "/post/:slug/?" do
-  @pageTitle = "View Post"
+  
   @post = Post.first(:slug => params[:slug])
 
   if @post
