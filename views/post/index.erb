@@ -1,16 +1,9 @@
 <div class="container">
 	
 	<% for Post in @posts %>
-
 		<h2><a href="./post/<%= Post.slug %>" class="btn btn-secondary btn-sm"><%= Post.title %></a></h2>
 		<p><%= Post.body.gsub(/<\/?[^>]*>/, "") %></p>
-		
-		<% if authorized %>
-		<a href="./post/<%= Post.slug %>" class="btn btn-secondary btn-sm">View</a>
-		<a href="./post/edit/<%= Post.id %>" class="btn btn-secondary btn-sm">Edit</a> 
-		<a href="./post/delete/<%= Post.id %>" class="btn btn-danger btn-sm" onClick="return confirm('Are you sure you want to delete?');">Delete</a>
-		<% end %>
-
+	
 		<hr>
 	<% end %>  
 

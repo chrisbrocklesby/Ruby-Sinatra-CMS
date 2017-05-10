@@ -19,15 +19,6 @@ post "/post/new/?" do
   data.title = params[:title]
   data.slug = params[:slug]
   data.body = params[:body]
-  
-  # Upload File
-  if (params['file'])
-    params['file'].length.times do |i|
-      File.open('public/assets/uploads/' + params['file'][i][:filename], "w") do |f|
-        f.write(params['file'][i][:tempfile].read)
-      end
-    end
-  end
 
   if(data.save)
     redirect('/post')
