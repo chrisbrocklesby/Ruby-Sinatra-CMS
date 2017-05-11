@@ -134,7 +134,6 @@ body {
   font-family: 'Roboto', sans-serif;
   font-family: 'Open Sans', sans-serif;
   color: #222;
-  padding-top: 75px;
 }
 
 time {
@@ -143,8 +142,11 @@ time {
   margin-top: -10px;
 }
 
+header {padding-top: 75px}
+
 /* Nav
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
 nav {
     overflow: hidden;
     position: fixed;
@@ -304,6 +306,7 @@ input[type="search"],
 input[type="text"],
 input[type="tel"],
 input[type="url"],
+input[type="file"],
 input[type="password"],
 textarea,
 select {

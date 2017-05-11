@@ -57,6 +57,10 @@
       <i class="fa fa-slack" aria-hidden="true"></i>
       <br/>
       <%= settings.sitename %>, Copyright &copy; <%= Date.today.year %>
+      <% if authorized %>
+      <br>
+      <small><a href="./admin">Admin Area</a></small>
+      <% end %>
     </center>
   </footer>      
       

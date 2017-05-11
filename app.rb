@@ -8,7 +8,7 @@ require 'will_paginate/data_mapper'
 require_relative 'controllers/error_controller'
 require_relative 'controllers/page_controller'
 require_relative 'controllers/post_controller'
-require_relative 'controllers/upload_controller'
+require_relative 'controllers/file_controller'
 
 ###### Required Models #######
 require_relative 'models/post_model'
@@ -20,3 +20,5 @@ require_relative 'helpers/auth_helper'
 set :environment, :development 
 set :url, 'http://localhost:4567'
 set :sitename, 'Website Name'
+set :admin, 'admin'
+set :password, 'password'

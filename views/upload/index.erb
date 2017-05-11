@@ -1,0 +1,33 @@
+<div class="container">
+
+<div class="row">
+		<div class="six columns">
+			<h1><i class="fa fa-file-o" aria-hidden="true"></i> Files</h1>
+		</div>
+		<div class="six columns">
+			<a href="./file/new" class="button pull-right">Upload File</a>
+		</div>
+	</div>
+</div>
+<div class="container">
+<table class="full-width">
+<tr>
+<th>File Name</th>
+<th>File URL</th>
+<th>Options</th>
+</tr>
+<% for File in @files %>
+<tr>
+<td><i class="fa fa-file-o" aria-hidden="true"></i> <%= File.split('/').last  %></td>
+<td>
+<a href="<%= settings.url %>/<%= File.gsub("public/", "") %>" target="_blank">
+<%= settings.url %>/<%= File.gsub("public/", "") %></a>
+</td>
+<td>
+<a href="<%= settings.url %>/<%= File.gsub("public/", "") %>" target="_blank">Open</a> | 
+<a href="./file/delete?file=<%= File %>" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+</td>
+</tr>
+<% end %>
+</table>
+</div>

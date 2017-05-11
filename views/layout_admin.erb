@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+   
+    
+    <base href="<%= settings.url %>">
+    
+    <title>Admin Area</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/normalize.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon" href="./assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="./assets/icons/icon-apple-default.png">
+    <link rel="apple-touch-icon" href="./assets/icons/icon-apple-76x76.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="./assets/icons/icon-apple-120x120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="./assets/icons/icon-apple-152x152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="./assets/icons/icon-apple-180x180.png" sizes="180x180">
+
+    <script src="./assets/js/app.js"></script>
+  </head>
+  <body>
+
+  <header>  
+    <nav id="nav">
+      <div class="container">
+       
+        <a href="./admin">Admin Area</a>  
+         <a href="javascript:void(0);" class="icon" onclick="responsiveMenu()">&#9776;</a>
+        <a href="#" class="pull-right button button-primary " style="margin-top: 10px">View Website</a>
+        <a href="./admin/files" class="pull-right">Files</a>
+        <a href="./admin/posts" class="pull-right">Posts</a>
+      </div>
+    </nav>
+  </header>
+    
+  <%= yield %>
+
+  <footer>
+    <center>
+      <br/>
+      <%= settings.sitename %>, Copyright &copy; <%= Date.today.year %>
+    </center>
+  </footer>      
+      
+  </body>
+<html>
