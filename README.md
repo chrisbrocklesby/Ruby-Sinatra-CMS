@@ -1,3 +1,3 @@
-# ChrisBrocklesby.com Repository (Ruby/Erb)
+# Ruby Sinatra Based CMS System (Ruby/Erb)
 
-ChrisBrocklesby.com website and code base...
+Basic / Light Ruby Sinatra Based CMS System..
